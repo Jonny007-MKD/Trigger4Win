@@ -86,10 +86,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Events\EventArgs.cs" />
-    <Compile Include="Events\Plugins\ProcessesEvent.cs" />
+    <Compile Include="Events\Plugins\ProcessesEvents.cs" />
     <Compile Include="Events\Plugins\ScreenEvents.cs" />
     <Compile Include="Events\Plugins\SystemEvents.cs" />
-    <Compile Include="Events\IEventPlugin.cs" />
+    <Compile Include="Events\EventPlugin.cs" />
     <Compile Include="Events\EventManager.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -114,13 +114,14 @@
     <Compile Include="StatusView.Designer.cs">
       <DependentUpon>StatusView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Status\ProcessStatus.cs" />
+    <Compile Include="Status\ProcessesStatus.cs" />
     <Compile Include="Status\ScreenStatus.cs" />
     <Compile Include="Status\NetworkStatus.cs" />
     <Compile Include="Status\SystemStatus.cs" />
     <Compile Include="Tasks\Plugins\Fun.cs" />
-    <Compile Include="Tasks\Plugins\LogProcessStartedEvents.cs" />
+    <Compile Include="Tasks\Plugins\LogProcessesEvents.cs" />
     <Compile Include="Tasks\Plugins\LogScreenEvents.cs" />
+    <Compile Include="Tasks\Plugins\OnHibernate.cs" />
     <Compile Include="Tasks\TaskPlugin.cs" />
     <Compile Include="Tasks\Plugins\LogSystemEvents.cs" />
     <Compile Include="Tasks\Plugins\ProxyHska.cs" />
