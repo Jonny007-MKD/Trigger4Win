@@ -168,8 +168,14 @@ namespace Tasker.Events
 		#region Event Handlers
 		private void instanceCreationEventWatcher_EventArrived(object sender, EventArrivedEventArgs e)
 		{
-			Process newProc = Process.GetProcessById(Convert.ToInt32(((ManagementBaseObject)e.NewEvent["TargetInstance"])["Handle"]));
-			if (OnProcessCreated != null)
+			Process newProc = null;
+			try
+			{
+				newProc = Process.GetProcessById(Convert.ToInt32(((ManagementBaseObject)e.NewEvent["TargetInstance"])["Handle"]));
+			}
+			catch (Exception) { }
+
+			if (OnProcessCreated != null && newProc != null)
 				OnProcessCreated(this, new EventArgsValue<Process>(newProc));
 			//oldValues[EventType.ProcessExited] = Status.Processes.RunningDict;
 			((Dictionary<int, Process>)oldValues[EventType.ProcessExited]).Add(newProc.Id, newProc);

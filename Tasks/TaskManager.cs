@@ -61,7 +61,7 @@ namespace Tasker.Tasks
 		private List<Type> getAvailableTasks()
 		{
 			List<Type> types = new List<Type>(System.Reflection.Assembly.GetExecutingAssembly().GetTypes());
-			types = types.FindAll(new Predicate<Type>(item => { return item.BaseType == typeof(TaskPlugin) && item.Namespace == "Tasker.Tasks"; }));
+			types = types.FindAll(new Predicate<Type>(item => { return item.BaseType == typeof(TaskPlugin) && item.Namespace.StartsWith("Tasker.Tasks"); }));
 			return types;
 		}
 
