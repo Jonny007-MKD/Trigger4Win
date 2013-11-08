@@ -19,7 +19,7 @@ namespace Tasker
 			/// <summary><para>This is a screen event</para></summary>
 			ScreenEvent,
 			/// <summary><para>This is a process started event</para></summary>
-			ProcessStartedEvent,
+			ProcessesEvent,
 			/// <summary><para>This is a network action</para></summary>
 			NetworkAction,
 			/// <summary><para>This is a system action</para></summary>
@@ -27,7 +27,7 @@ namespace Tasker
 			/// <summary><para>This is a screen action</para></summary>
 			ScreenAction,
 			/// <summary><para>This is a process started action</para></summary>
-			ProcessStartedAction,
+			ProcessesAction,
 			/// <summary><para>This is an message without type</para></summary>
 			Other,
 			/// <summary><para>This is an error message</para></summary>
