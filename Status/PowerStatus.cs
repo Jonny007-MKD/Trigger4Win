@@ -56,7 +56,12 @@ namespace Tasker.Status
 		{
 			get
 			{
-				return new TimeSpan(0, 0, SystemInformation.PowerStatus.BatteryFullLifetime);
+				int fullLifeTime = SystemInformation.PowerStatus.BatteryFullLifetime;
+				int lifeRemaining = SystemInformation.PowerStatus.BatteryLifeRemaining;
+				if (fullLifeTime == -1 && lifeRemaining != -1)
+					return new TimeSpan(0, 0, (int)(lifeRemaining / SystemInformation.PowerStatus.BatteryLifePercent));
+				else
+					return new TimeSpan(0, 0, fullLifeTime);
 			}
 		}
 
@@ -79,10 +84,7 @@ namespace Tasker.Status
 			get
 			{
 				int life = SystemInformation.PowerStatus.BatteryLifeRemaining;
-				if (life >= 0)
-					return new TimeSpan(0, 0, life);
-				else
-					return new TimeSpan();
+				return new TimeSpan(0, 0, life);
 			}
 		}
 
@@ -105,6 +107,7 @@ namespace Tasker.Status
 		public static TreeNode GetStatus()
 		{
 			TreeNode tnMain = new TreeNode("Power");
+			tnMain.Nodes.Add("Active power scheme: " + ActivePowerScheme.Name + " (" + ActivePowerScheme.Guid.ToString() + ")");
 			tnMain.Nodes.Add("Power Line Status: " + PowerLineStatus.ToString());
 			tnMain.Nodes.Add("Battery charge status: " + BatteryChargeStatus.ToString());
 			tnMain.Nodes.Add("Battery available: " + BatteryAvailable.ToString());

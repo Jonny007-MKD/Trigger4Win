@@ -217,6 +217,7 @@ namespace Tasker.Events
 		}
 		#endregion
 		#endregion
+		#endregion
 
 		#region Constructor & Destructor
 		/// <summary>
@@ -370,7 +371,6 @@ namespace Tasker.Events
 					break;
 			}
 		}
-		#endregion
 		#endregion
 	}
 }

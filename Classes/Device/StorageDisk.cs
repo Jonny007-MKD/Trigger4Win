@@ -73,10 +73,15 @@ namespace Tasker.Classes.Device
 		{
 			StringBuilder builder = new StringBuilder();
 			builder.Append(this.Type.ToString());
-			builder.Append(" ");
+			builder.Append(": ");
 			builder.Append(this.Model);
 			builder.Append(" (");
 			builder.Append(StorageDisk.FormatByte(this.Size));
+			builder.Append(" in ");
+			builder.Append(this.Partitions.Count);
+			builder.Append(" partition");
+			if (this.Partitions.Count != 1)
+				builder.Append("s");
 			builder.Append(")");
 			return builder.ToString();
 		}
