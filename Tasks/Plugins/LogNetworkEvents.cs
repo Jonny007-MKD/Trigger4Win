@@ -9,8 +9,14 @@ namespace Tasker.Tasks
 {
 	class LogNetworkEvents : TaskPlugin
 	{
-		private Log Log;
+		internal Log Log;
+
+		#region Methods
 		public override bool Init(Main Main)
+		{
+			return Init(Main, new System.Diagnostics.Stopwatch());
+		}
+		public override bool Init(Main Main, System.Diagnostics.Stopwatch swInit)
 		{
 			this.Log = Main.Log;
 
@@ -20,18 +26,21 @@ namespace Tasker.Tasks
 				return false;
 			}
 
+			swInit.Stop();
 			Events.Network networkEvents = Main.EventMgr.GetPlugin<Events.Network>();
+			swInit.Start();
+
 			networkEvents.NetworkAvailabilityChanged += networkEvents_NetworkAvailabilityChanged;
 			networkEvents.NetworkInterfaceAdded += networkEvents_NetworkInterfaceAdded;
 			networkEvents.NetworkInterfaceRemoved += networkEvents_NetworkInterfaceRemoved;
 			networkEvents.IpAddressChanged += networkEvents_IpAddrChanged;
 			return true;
 		}
+		#endregion
 
 
-
-
-		void networkEvents_IpAddrChanged(object sender, Events.EventArgsValues<NetworkInterface> e)
+		#region Event handlers
+		private void networkEvents_IpAddrChanged(object sender, Events.EventArgsValues<NetworkInterface> e)
 		{
 			this.Log.LogLineDate("IP changed: " + e.OldValue.Name + ":", Log.Type.NetworkEvent);
 			UnicastIPAddressInformationCollection ipsOld = e.OldValue.GetIPProperties().UnicastAddresses;
@@ -49,19 +58,20 @@ namespace Tasker.Tasks
 			}
 		}
 
-		void networkEvents_NetworkInterfaceRemoved(object sender, Events.EventArgsValue<NetworkInterface> e)
+		private void networkEvents_NetworkInterfaceRemoved(object sender, Events.EventArgsValue<NetworkInterface> e)
 		{
 			this.Log.LogLineDate("Interface removed: " + e.Value.Name + "(" + e.Value.Id + ")", Log.Type.NetworkEvent);
 		}
 
-		void networkEvents_NetworkInterfaceAdded(object sender, Events.EventArgsValue<NetworkInterface> e)
+		private void networkEvents_NetworkInterfaceAdded(object sender, Events.EventArgsValue<NetworkInterface> e)
 		{
 			this.Log.LogLineDate("Interface added: " + e.Value.Name + "(" + e.Value.Id + ")", Log.Type.NetworkEvent);
 		}
 
-		void networkEvents_NetworkAvailabilityChanged(object sender, Events.EventArgsValue<bool> e)
+		private void networkEvents_NetworkAvailabilityChanged(object sender, Events.EventArgsValue<bool> e)
 		{
 			this.Log.LogLineDate("Network available: " + e.Value, Log.Type.NetworkEvent);
 		}
+		#endregion
 	}
 }

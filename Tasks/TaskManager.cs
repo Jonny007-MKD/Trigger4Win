@@ -83,11 +83,25 @@ namespace Tasker.Tasks
 		{
 			try
 			{
+#if DEBUG
+			System.Diagnostics.Stopwatch swInitEvent = new System.Diagnostics.Stopwatch();
+			swInitEvent.Start();
+#endif
 				TaskPlugin task = (TaskPlugin)Activator.CreateInstance(type);
+#if DEBUG
+				if (new List<System.Reflection.MethodInfo>(type.GetMethods()).Find(new Predicate<System.Reflection.MethodInfo>(m => { return m.Name == "Init" && m.GetParameters().Length == 2; })) != null && task.Init(this.Main, swInitEvent) || task.Init(this.Main))
+#else
 				if (task.Init(this.Main))
+#endif
 				{
 					this.TaskPluginInstances.Add(task);
-					this.Main.Log.LogLine("Loaded Task  plugin \"" + type.Name + "\"", Log.Type.Other);
+
+#if DEBUG
+					swInitEvent.Stop();
+					this.Main.Log.LogLine("Loaded Task  plugin \"" + type.Name + "\" in " + swInitEvent.ElapsedMilliseconds + "ms", Log.Type.Other);
+#else
+			this.Main.Log.LogLine("Loaded Task  plugin \"" + type.Name + "\"", Log.Type.Other);
+#endif
 				}
 			}
 			catch (Exception e)

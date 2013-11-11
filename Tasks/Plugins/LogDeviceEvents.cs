@@ -8,9 +8,14 @@ namespace Tasker.Tasks
 {
 	class LogDeviceEvents : TaskPlugin
 	{
-		private Log Log;
+		internal Log Log;
 
+		#region Methods
 		public override bool Init(Main Main)
+		{
+			return Init(Main, new System.Diagnostics.Stopwatch());
+		}
+		public override bool Init(Main Main, System.Diagnostics.Stopwatch swInit)
 		{
 			if (!Main.EventMgr.PluginExists<Events.Device>())
 			{
@@ -20,7 +25,9 @@ namespace Tasker.Tasks
 
 			this.Log = Main.Log;
 
+			swInit.Stop();
 			Events.Device devEvents = Main.EventMgr.GetPlugin<Events.Device>(new object[] {Main});
+			swInit.Start();
 
 			devEvents.DeviceArrived += new Events.EventPlugin.EventValue<Device>(devEvents_DeviceArrived);
 			devEvents.DeviceQueryRemove += new Events.EventPlugin.EventValue<Device>(devEvents_DeviceQueryRemove);
@@ -30,12 +37,10 @@ namespace Tasker.Tasks
 			devEvents.NetworkVolumeArrived += new Events.EventPlugin.EventValue<Device>(devEvents_NetworkVolumeArrived);
 			return true;
 		}
+		#endregion
 
 
-
-
-
-
+		#region Event handlers
 		private void devEvents_DeviceArrived(object sender, Events.EventArgsValue<Device> e)
 		{
 			this.Log.LogLineDate("New device arrived: " + e.Value.Model, Tasker.Log.Type.DeviceEvent);
@@ -65,5 +70,6 @@ namespace Tasker.Tasks
 		{
 			this.Log.LogLineDate("New network volume arrived: " + e.Value.Model, Tasker.Log.Type.DeviceEvent);
 		}
+		#endregion
 	}
 }

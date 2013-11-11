@@ -9,7 +9,13 @@ namespace Tasker.Tasks
 	class LogScreenEvents : TaskPlugin
 	{
 		private Log Log;
+
+		#region Methods
 		public override bool Init(Main Main)
+		{
+			return Init(Main, new System.Diagnostics.Stopwatch());
+		}
+		public override bool Init(Main Main, System.Diagnostics.Stopwatch swInit)
 		{
 			if (!Main.EventMgr.PluginExists<Events.Screen>())
 			{
@@ -19,7 +25,9 @@ namespace Tasker.Tasks
 
 			this.Log = Main.Log;
 
+			swInit.Stop();
 			Events.Screen screenEvents = Main.EventMgr.GetPlugin<Events.Screen>();
+			swInit.Start();
 
 			screenEvents.ScreenAdded += new Events.EventPlugin.EventValue<ScreenEx>(screenEvents_ScreenAdded);
 			screenEvents.ScreenRemoved += new Events.EventPlugin.EventValue<ScreenEx>(screenEvents_ScreenRemoved);
@@ -31,10 +39,10 @@ namespace Tasker.Tasks
 			screenEvents.ScreenRefreshRateChanged += new Events.EventPlugin.EventValues<ScreenEx>(screenEvents_ScreenRefreshRateChanged);
 			return true;
 		}
+		#endregion
 
 
-
-
+		#region Event handlers
 		void screenEvents_ScreenAdded(object sender, Events.EventArgsValue<ScreenEx> e)
 		{
 			this.Log.LogLineDate("The screen \"" + e.Value.Name + "\" was added (" + e.Value.Bounds.Width + "x" + e.Value.Bounds.Height + "  " + e.Value.BitsPerPixel + "bit)", Log.Type.ScreenEvent);
@@ -74,5 +82,6 @@ namespace Tasker.Tasks
 		{
 			this.Log.LogLineDate("The refresh rate of \"" + e.NewValue.Name + "\" has changed: " + e.OldValue.Frequency + "Hz -> " + e.NewValue.Frequency + "Hz", Log.Type.ScreenEvent);
 		}
+		#endregion
 	}
 }

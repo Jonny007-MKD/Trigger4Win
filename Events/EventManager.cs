@@ -103,12 +103,21 @@ namespace Tasker.Events
 			if (reuseExisting && this.EventPluginInstances.ContainsKey(primKey))
 				return (T)this.EventPluginInstances[primKey];
 
+#if DEBUG
+			Systemm.Diagnostics.Stopwatch swInitEvent = new Systemm.Diagnostics.Stopwatch();
+			swInitEvent.Start();
+#endif
 			T plugin = (T)Systemm.Activator.CreateInstance(primKey, args);
 			if (!this.EventPluginInstances.ContainsKey(primKey))		// do we really want to store the plugin?
 				this.EventPluginInstances.Add(primKey, plugin);
 			this.EventPluginInstancesAll.Add(plugin);
 
+#if DEBUG
+			swInitEvent.Stop();
+			this.Log.LogLine("Loaded Event plugin \"" + primKey.Name + "\" in " + swInitEvent.ElapsedMilliseconds + "ms", Log.Type.Other);
+#else
 			this.Log.LogLine("Loaded Event plugin \"" + primKey.Name + "\"", Log.Type.Other);
+#endif
 			return plugin;
 		}
 

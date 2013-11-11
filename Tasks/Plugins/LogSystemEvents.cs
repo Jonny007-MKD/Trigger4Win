@@ -8,7 +8,13 @@ namespace Tasker.Tasks
 	class LogSystemEvents : TaskPlugin
 	{
 		private Log Log;
+
+		#region Methods
 		public override bool Init(Main Main)
+		{
+			return Init(Main, new System.Diagnostics.Stopwatch());
+		}
+		public override bool Init(Main Main, System.Diagnostics.Stopwatch swInit)
 		{
 			if (!Main.EventMgr.PluginExists<Events.System>())
 			{
@@ -18,7 +24,9 @@ namespace Tasker.Tasks
 
 			this.Log = Main.Log;
 
+			swInit.Stop();
 			Events.System sysEvents = Main.EventMgr.GetPlugin<Events.System>();
+			swInit.Start();
 
 			sysEvents.InstalledFontsChanged += new Events.EventPlugin.Event(sysEvents_InstalledFontsChanged);
 			sysEvents.FontAdded += new Events.EventPlugin.EventValue<FontFamily>(sysEvents_FontAdded);
@@ -36,15 +44,13 @@ namespace Tasker.Tasks
 			sysEvents.SessionLogon += new Events.EventPlugin.Event(sysEvents_SessionLogon);
 			sysEvents.SessionRemoteControl += new Events.EventPlugin.Event(sysEvents_SessionRemoteControl);
 			sysEvents.SessionUnlock += new Events.EventPlugin.Event(sysEvents_SessionUnlock);
+
 			return true;
 		}
+		#endregion
 
 
-
-
-
-
-
+		#region Event handlers
 		void sysEvents_InstalledFontsChanged(object sender, EventArgs e)
 		{
 			this.Log.LogLineDate("Tthe user added (a) font(s) to or removes (a) font(s) from the system", Log.Type.SystemEvent);
@@ -121,5 +127,6 @@ namespace Tasker.Tasks
 		{
 			this.Log.LogLineDate("A session has been unlocked", Log.Type.SystemEvent);
 		}
+		#endregion
 	}
 }

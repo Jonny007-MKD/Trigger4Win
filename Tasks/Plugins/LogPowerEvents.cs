@@ -8,9 +8,14 @@ namespace Tasker.Tasks
 {
 	class LogPowerEvents : TaskPlugin
 	{
-		private Log Log;
+		internal Log Log;
 
+		#region Methods
 		public override bool Init(Main Main)
+		{
+			return Init(Main, new System.Diagnostics.Stopwatch());
+		}
+		public override bool Init(Main Main, System.Diagnostics.Stopwatch swInit)
 		{
 			if (!Main.EventMgr.PluginExists<Events.Power>())
 			{
@@ -20,7 +25,9 @@ namespace Tasker.Tasks
 
 			this.Log = Main.Log;
 
+			swInit.Stop();
 			Events.Power pwrEvents = Main.EventMgr.GetPlugin<Events.Power>(new object[] {Main});
+			swInit.Start();
 
 			pwrEvents.PowerModeChanged += new Events.EventPlugin.EventValue<PowerModes>(pwrEvents_PowerModeChanged);
 			pwrEvents.Suspend += new Events.EventPlugin.Event(pwrEvents_Suspend);
@@ -32,16 +39,10 @@ namespace Tasker.Tasks
 			pwrEvents.PowerSchemeChanged += new Events.EventPlugin.EventValues<PowerScheme>(pwrEvents_PowerSchemeChanged);
 			return true;
 		}
+		#endregion
 
 
-
-
-
-
-
-
-
-
+		#region Event handlers
 		private void pwrEvents_PowerModeChanged(object sender, Events.EventArgsValue<PowerModes> e)
 		{
 			if (e.Value == PowerModes.StatusChange)
@@ -89,5 +90,6 @@ namespace Tasker.Tasks
 		{
 			this.Log.LogLineDate("Power scheme changed: " + e.OldValue.Name + " --> " + e.NewValue.Name, Tasker.Log.Type.PowerEvent);
 		}
+		#endregion
 	}
 }
