@@ -16,18 +16,26 @@ namespace Tasker
 			NetworkEvent,
 			/// <summary><para>This is a system event</para></summary>
 			SystemEvent,
+			/// <summary><para>This is a power event</para></summary>
+			PowerEvent,
 			/// <summary><para>This is a screen event</para></summary>
 			ScreenEvent,
-			/// <summary><para>This is a process started event</para></summary>
+			/// <summary><para>This is a process event</para></summary>
 			ProcessesEvent,
+			/// <summary><para>This is a device event</para></summary>
+			DeviceEvent,
 			/// <summary><para>This is a network action</para></summary>
 			NetworkAction,
 			/// <summary><para>This is a system action</para></summary>
 			SystemAction,
+			/// <summary><para>This is a power action</para></summary>
+			PowerAction,
 			/// <summary><para>This is a screen action</para></summary>
 			ScreenAction,
-			/// <summary><para>This is a process started action</para></summary>
+			/// <summary><para>This is a process action</para></summary>
 			ProcessesAction,
+			/// <summary><para>This is a device action</para></summary>
+			DeviceAction,
 			/// <summary><para>This is an message without type</para></summary>
 			Other,
 			/// <summary><para>This is an error message</para></summary>

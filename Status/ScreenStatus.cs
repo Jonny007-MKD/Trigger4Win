@@ -63,15 +63,15 @@ namespace Tasker.Status
 		{
 			TreeNode tnMain = new TreeNode("Screens (" + AllScreens.Count + ")");
 			AllScreens.ForEach(new Action<ScreenEx>(screen =>
-					{
-						TreeNode tnScreen = tnMain.Nodes.Add(screen.DeviceName);
-						tnScreen.Nodes.Add("Primary: " + screen.Primary.ToString());
-						tnScreen.Nodes.Add("Color depth: " + screen.BitsPerPixel + "bit");
-						tnScreen.Nodes.Add("Resolution: " + screen.Bounds.Width + "x" + screen.Bounds.Height);
-						tnScreen.Nodes.Add("Position: " + screen.Bounds.X + " | " + screen.Bounds.Y);
-						tnScreen.Nodes.Add("Display orientation: " + screen.Orientation.ToString());
-						tnScreen.Nodes.Add("Refresh rate: " + screen.Frequency);
-					}));
+			{
+				TreeNode tnScreen = tnMain.Nodes.Add(screen.DeviceName);
+				tnScreen.Nodes.Add("Primary: " + screen.Primary.ToString());
+				tnScreen.Nodes.Add("Color depth: " + screen.BitsPerPixel + "bit");
+				tnScreen.Nodes.Add("Resolution: " + screen.Bounds.Width + "x" + screen.Bounds.Height);
+				tnScreen.Nodes.Add("Position: " + screen.Bounds.X + " | " + screen.Bounds.Y);
+				tnScreen.Nodes.Add("Display orientation: " + screen.Orientation.ToString());
+				tnScreen.Nodes.Add("Refresh rate: " + screen.Frequency);
+			}));
 			return tnMain;
 		}
 

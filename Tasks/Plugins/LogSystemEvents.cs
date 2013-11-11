@@ -24,13 +24,6 @@ namespace Tasker.Tasks
 			sysEvents.FontAdded += new Events.EventPlugin.EventValue<FontFamily>(sysEvents_FontAdded);
 			sysEvents.FontRemoved += new Events.EventPlugin.EventValue<FontFamily>(sysEvents_FontRemoved);
 
-			//sysEvents.PowerModeChanged += new Events.EventPlugin.EventValue<PowerModes>(sysEvents_PowerModeChanged);
-			sysEvents.Suspend += new Events.EventPlugin.Event(sysEvents_Suspend);
-			sysEvents.Resume += new Events.EventPlugin.Event(sysEvents_Resume);
-			sysEvents.PowerLineStatusChanged += new Events.EventPlugin.EventValues<PowerLineStatus>(sysEvents_PowerLineStatusChanged);
-			sysEvents.BatteryAvailabilityChanged += new Events.EventPlugin.EventValue<bool?>(sysEvents_BatteryAvailabilityChanged);
-			sysEvents.BatteryStatusChanged += new Events.EventPlugin.EventValues<BatteryChargeStatus>(sysEvents_BatteryStatusChanged);
-
 			sysEvents.Logoff += new Events.EventPlugin.Event(sysEvents_Logoff);
 			sysEvents.Shutdown += new Events.EventPlugin.Event(sysEvents_Shutdown);
 
@@ -69,44 +62,6 @@ namespace Tasker.Tasks
 
 
 
-		void sysEvents_PowerModeChanged(object sender, Events.EventArgsValue<PowerModes> e)
-		{
-			if (e.Value == PowerModes.StatusChange)
-				this.Log.LogLineDate("The PowerMode changed to: " + e.Value.ToString(), Log.Type.SystemEvent);
-		}
-
-		void sysEvents_Suspend(object sender, EventArgs e)
-		{
-			this.Log.LogLineDate("The system is being suspended", Log.Type.SystemEvent);
-		}
-
-		void sysEvents_Resume(object sender, EventArgs e)
-		{
-			this.Log.LogLineDate("The system is being resumed", Log.Type.SystemEvent);
-		}
-
-		void sysEvents_PowerLineStatusChanged(object sender, Events.EventArgsValues<PowerLineStatus> e)
-		{
-			if (e.NewValue == PowerLineStatus.Online)
-				this.Log.LogLineDate("The computer was connected to the power network", Tasker.Log.Type.SystemEvent);
-			else
-				this.Log.LogLineDate("The computer was disconnected from the power network", Tasker.Log.Type.SystemEvent);
-		}
-
-		private void sysEvents_BatteryAvailabilityChanged(object sender, Events.EventArgsValue<bool?> e)
-		{
-			if (e.Value.Value == true)
-				this.Log.LogLineDate("A battery was connected", Tasker.Log.Type.SystemEvent);
-			else
-				this.Log.LogLineDate("A battery was disconnected", Tasker.Log.Type.SystemEvent);
-		}
-
-		void sysEvents_BatteryStatusChanged(object sender, Events.EventArgsValues<BatteryChargeStatus> e)
-		{
-			this.Log.LogLineDate("The status of the battery changed: " + e.OldValue.ToString() + " -> " + e.NewValue.ToString() + " (" + Status.System.BatteryLifePercent.ToString() + "%)", Tasker.Log.Type.SystemEvent);
-		}
-
-
 
 		void sysEvents_Logoff(object sender, EventArgs e)
 		{
@@ -117,6 +72,8 @@ namespace Tasker.Tasks
 		{
 			this.Log.LogLineDate("The user is trying to shutdown the system", Log.Type.SystemEvent);
 		}
+
+
 
 
 

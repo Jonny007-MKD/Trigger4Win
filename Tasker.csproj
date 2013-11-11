@@ -77,15 +77,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\PowerAction.cs" />
     <Compile Include="Actions\ScreenAction.cs" />
     <Compile Include="Actions\NetworkAction.cs" />
     <Compile Include="Actions\SystemAction.cs" />
-    <Compile Include="Classes\ScreenClass.cs" />
-    <Compile Include="Classes\ScreenEx.cs" />
+    <Compile Include="Classes\Device\Device.cs" />
+    <Compile Include="Classes\Device\IdeDisk.cs" />
+    <Compile Include="Classes\Device\CdRomDrive.cs" />
+    <Compile Include="Classes\Device\Partition.cs" />
+    <Compile Include="Classes\Device\StorageDisk.cs" />
+    <Compile Include="Classes\Device\UsbDisk.cs" />
+    <Compile Include="Classes\Power\PowerScheme.cs" />
+    <Compile Include="Classes\Screen\ScreenSettingsDevMode.cs" />
+    <Compile Include="Classes\Screen\ScreenEx.cs" />
+    <Compile Include="Classes\System\BroadcastStructs.cs" />
+    <Compile Include="Classes\System\WindowsMessage.cs" />
     <Compile Include="Events\EventList.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Events\EventArgs.cs" />
+    <Compile Include="Events\Plugins\DeviceEvents.cs" />
+    <Compile Include="Events\Plugins\PowerEvents.cs" />
     <Compile Include="Events\Plugins\ProcessesEvents.cs" />
     <Compile Include="Events\Plugins\ScreenEvents.cs" />
     <Compile Include="Events\Plugins\SystemEvents.cs" />
@@ -106,6 +118,9 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Main.Win32Window.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatusView.cs">
@@ -114,11 +129,14 @@
     <Compile Include="StatusView.Designer.cs">
       <DependentUpon>StatusView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Status\Device.cs" />
+    <Compile Include="Status\PowerStatus.cs" />
     <Compile Include="Status\ProcessesStatus.cs" />
     <Compile Include="Status\ScreenStatus.cs" />
     <Compile Include="Status\NetworkStatus.cs" />
     <Compile Include="Status\SystemStatus.cs" />
-    <Compile Include="Tasks\Plugins\Fun.cs" />
+    <Compile Include="Tasks\Plugins\LogDeviceEvents.cs" />
+    <Compile Include="Tasks\Plugins\LogPowerEvents.cs" />
     <Compile Include="Tasks\Plugins\LogProcessesEvents.cs" />
     <Compile Include="Tasks\Plugins\LogScreenEvents.cs" />
     <Compile Include="Tasks\Plugins\OnHibernate.cs" />
@@ -197,6 +215,7 @@
   <ItemGroup>
     <Content Include="icon-all.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

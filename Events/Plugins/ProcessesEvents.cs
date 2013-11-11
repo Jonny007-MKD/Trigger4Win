@@ -175,10 +175,13 @@ namespace Tasker.Events
 			}
 			catch (Exception) { }
 
-			if (OnProcessCreated != null && newProc != null)
-				OnProcessCreated(this, new EventArgsValue<Process>(newProc));
-			//oldValues[EventType.ProcessExited] = Status.Processes.RunningDict;
-			((Dictionary<int, Process>)oldValues[EventType.ProcessExited]).Add(newProc.Id, newProc);
+			if (newProc != null)
+			{
+				if (OnProcessCreated != null)
+					OnProcessCreated(this, new EventArgsValue<Process>(newProc));
+				//oldValues[EventType.ProcessExited] = Status.Processes.RunningDict;
+				((Dictionary<int, Process>)oldValues[EventType.ProcessExited])[newProc.Id] = newProc;
+			}
 		}
 
 		private void instanceDeletionEventWatcher_EventArrived(object sender, EventArrivedEventArgs e)
