@@ -77,7 +77,7 @@ namespace Tasker.Actions
 		public static bool UpdateScreen(ScreenEx screen)
 		{
 			ScreenSettingsDevMode devMode = screen.ToDEVMODE();
-			DispChange result = ChangeDisplaySettingsEx(screen.DeviceName, ref devMode, CDS.RESET | CDS.UPDATEREGISTRY);
+			DispChange result = ChangeDisplaySettingsEx(screen.Name, ref devMode, CDS.RESET | CDS.UPDATEREGISTRY);
 			if (result >= 0)
 				return true;
 			else
@@ -87,7 +87,7 @@ namespace Tasker.Actions
 		public static bool UpdateScreenAndMakePrimary(ScreenEx screen)
 		{
 			ScreenSettingsDevMode devMode = screen.ToDEVMODE();
-			return ChangeDisplaySettingsEx(screen.DeviceName, ref devMode, CDS.RESET | CDS.UPDATEREGISTRY | CDS.SET_PRIMARY) >= 0;
+			return ChangeDisplaySettingsEx(screen.Name, ref devMode, CDS.RESET | CDS.UPDATEREGISTRY | CDS.SET_PRIMARY) >= 0;
 		}
 	}
 }

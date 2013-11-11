@@ -64,7 +64,7 @@ namespace Tasker.Status
 			TreeNode tnMain = new TreeNode("Screens (" + AllScreens.Count + ")");
 			AllScreens.ForEach(new Action<ScreenEx>(screen =>
 			{
-				TreeNode tnScreen = tnMain.Nodes.Add(screen.DeviceName);
+				TreeNode tnScreen = tnMain.Nodes.Add(screen.Name);
 				tnScreen.Nodes.Add("Primary: " + screen.Primary.ToString());
 				tnScreen.Nodes.Add("Color depth: " + screen.BitsPerPixel + "bit");
 				tnScreen.Nodes.Add("Resolution: " + screen.Bounds.Width + "x" + screen.Bounds.Height);

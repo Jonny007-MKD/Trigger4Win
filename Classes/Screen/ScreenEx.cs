@@ -292,5 +292,28 @@ namespace Tasker.Classes.Screen
 			return devMode;
 		}
 		#endregion
+
+		#region Operators
+		public override int GetHashCode()
+		{
+			return this.Id.GetHashCode();
+		}
+		public override bool Equals(object obj)
+		{
+			ScreenEx that = obj as ScreenEx;
+			if (that == null)
+				return false;
+			return this.Id == that.Id;
+		}
+
+		public static bool operator == (ScreenEx A, ScreenEx B)
+		{
+			return A.Id == B.Id;
+		}
+		public static bool operator != (ScreenEx A, ScreenEx B)
+		{
+			return A.Id != B.Id;
+		}
+		#endregion
 	}
 }

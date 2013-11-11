@@ -197,7 +197,7 @@ namespace Tasker.Classes.Power
 		#endregion
 		#region Other Settings
 		/// <summary><para>Contains all the additional settings of this <see cref="PowerScheme"/></para></summary>
-		internal Dictionary<Guid, int> settings = new Dictionary<Guid, int>(80);
+		internal Dictionary<Guid, ulong> settings = new Dictionary<Guid, ulong>(80);
 
 		public bool Adaptive
 		{
@@ -213,14 +213,14 @@ namespace Tasker.Classes.Power
 				return Convert.ToBoolean(settings[GUID_SET_ADAPTIVE_BRIGHTNESS]);
 			}
 		}
-		public uint DimScreenTimeout
+		public ulong DimScreenTimeout
 		{
 			get
 			{
 				return Convert.ToUInt32(settings[GUID_SET_DIM_SCREEN_TIMEOUT]);
 			}
 		}
-		public uint DiskDriveTimeout
+		public ulong DiskDriveTimeout
 		{
 			get
 			{
@@ -248,14 +248,14 @@ namespace Tasker.Classes.Power
 				return Convert.ToBoolean(settings[GUID_SET_SELECTIVE_USB_ENERGY_SAVING]);
 			}
 		}
-		public uint SwitchoffScreenTimeout
+		public ulong SwitchoffScreenTimeout
 		{
 			get
 			{
 				return Convert.ToUInt32(settings[GUID_SET_SWITCHOFF_SCREEN_TIMEOUT]);
 			}
 		}
-		public uint UserAnnoyanceTimeout
+		public ulong UserAnnoyanceTimeout
 		{
 			get
 			{
@@ -368,7 +368,7 @@ namespace Tasker.Classes.Power
 					StringBuilder name = new StringBuilder((int)nameSize);
 					result = PowerReadFriendlyName(IntPtr.Zero, GuidPtr, pSubGroup, pSetting, name, ref nameSize);
 
-					this.settings.Add(SettingGuid, (int)value);
+					this.settings.Add(SettingGuid, (ulong)value);
 
 					indexJ++;
 				}

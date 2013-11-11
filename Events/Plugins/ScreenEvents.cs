@@ -330,7 +330,7 @@ namespace Tasker.Events
 
 			foreach (ScreenEx newScreen in newScreens)
 			{
-				ScreenEx found = oldScreens.Find(new Predicate<ScreenEx>(item => { return item.DeviceName == newScreen.DeviceName; }));
+				ScreenEx found = oldScreens.Find(new Predicate<ScreenEx>(item => { return item.Name == newScreen.Name; }));
 				if (found == null)
 				{
 					if (OnScreenAdded != null)
@@ -385,7 +385,7 @@ namespace Tasker.Events
 					OnScreenRemoved(this, new EventArgsValue<ScreenEx>(oldScreen));
 
 			ScreenEx newPrimary = Status.Screen.PrimaryScreen;
-			if (OnPrimaryScreenChanged != null && oldPrimary.DeviceName != newPrimary.DeviceName)
+			if (OnPrimaryScreenChanged != null && oldPrimary != newPrimary)
 				OnPrimaryScreenChanged(this, new EventArgsValues<ScreenEx>(oldPrimary, newPrimary));
 
 			oldValues[EventType.DisplaySettingsChanged] = newScreens;
