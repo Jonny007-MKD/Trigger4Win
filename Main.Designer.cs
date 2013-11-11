@@ -1,4 +1,4 @@
-﻿namespace Tasker
+﻿namespace Trigger
 {
 	partial class Main
 	{
@@ -57,7 +57,7 @@
 			// 
 			// tsmNotifyIcon_Status
 			// 
-			this.tsmNotifyIcon_Status.Image = global::Tasker.Properties.Resources.Chart_16x16;
+			this.tsmNotifyIcon_Status.Image = global::Trigger.Properties.Resources.Chart_16x16;
 			this.tsmNotifyIcon_Status.Name = "tsmNotifyIcon_Status";
 			this.tsmNotifyIcon_Status.Size = new System.Drawing.Size(152, 22);
 			this.tsmNotifyIcon_Status.Text = "Show status";
@@ -65,7 +65,7 @@
 			// 
 			// tsmNotifyIcon_Log
 			// 
-			this.tsmNotifyIcon_Log.Image = global::Tasker.Properties.Resources.icon_16;
+			this.tsmNotifyIcon_Log.Image = global::Trigger.Properties.Resources.icon_16;
 			this.tsmNotifyIcon_Log.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.tsmNotifyIcon_Log.Name = "tsmNotifyIcon_Log";
 			this.tsmNotifyIcon_Log.Size = new System.Drawing.Size(152, 22);
@@ -75,7 +75,7 @@
 			// 
 			// tsmNotifyIcon_Exit
 			// 
-			this.tsmNotifyIcon_Exit.Image = global::Tasker.Properties.Resources.RedCross_16x16;
+			this.tsmNotifyIcon_Exit.Image = global::Trigger.Properties.Resources.RedCross_16x16;
 			this.tsmNotifyIcon_Exit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.tsmNotifyIcon_Exit.Name = "tsmNotifyIcon_Exit";
 			this.tsmNotifyIcon_Exit.Size = new System.Drawing.Size(152, 22);

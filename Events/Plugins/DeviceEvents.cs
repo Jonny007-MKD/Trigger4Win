@@ -3,10 +3,10 @@ using Systemm = System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
-using Tasker.Classes.System;
-using Tasker.Classes.Device;
+using Trigger.Classes.System;
+using Trigger.Classes.Device;
 
-namespace Tasker.Events
+namespace Trigger.Events
 {
 	public class Device : EventPlugin
 	{

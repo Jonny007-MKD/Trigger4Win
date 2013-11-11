@@ -4,9 +4,9 @@ using Microsoft.Win32;
 using Win32_SystemEvents = Microsoft.Win32.SystemEvents;
 using System.Windows.Forms;
 using System.Drawing;
-using Tasker.Classes.Screen;
+using Trigger.Classes.Screen;
 
-namespace Tasker.Events
+namespace Trigger.Events
 {
 	class Screen : EventPlugin
 	{

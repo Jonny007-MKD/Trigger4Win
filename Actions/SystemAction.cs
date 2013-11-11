@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace Tasker.Actions
+namespace Trigger.Actions
 {
 	public class System
 	{

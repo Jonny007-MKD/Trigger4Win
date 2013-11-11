@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
-using Tasker.Events;
+using Trigger.Events;
 
-namespace Tasker.Tasks
+namespace Trigger.Tasks
 {
 	class LogProcessesEvents : TaskPlugin
 	{
@@ -36,14 +36,14 @@ namespace Tasker.Tasks
 		#region Event handlers
 		private void procEvents_ProcessCreated(object sender, EventArgsValue<Process> e)
 		{
-			this.Log.LogLineDate("A new process was created: " + e.Value.ProcessName + " (" + e.Value.Id + ")", Tasker.Log.Type.ProcessesEvent);
+			this.Log.LogLineDate("A new process was created: " + e.Value.ProcessName + " (" + e.Value.Id + ")", Trigger.Log.Type.ProcessesEvent);
 		}
 
 		private void procEvents_ProcessExited(object sender, EventArgsValue<Process> e)
 		{
 			string exitCode = "";
 			try { exitCode = " Code " + e.Value.ExitCode.ToString(); } catch { }
-			this.Log.LogLineDate("A process has exited: " + e.Value.ProcessName + " (" + e.Value.Id + ")" + exitCode, Tasker.Log.Type.ProcessesEvent);
+			this.Log.LogLineDate("A process has exited: " + e.Value.ProcessName + " (" + e.Value.Id + ")" + exitCode, Trigger.Log.Type.ProcessesEvent);
 		}
 		#endregion
 	}

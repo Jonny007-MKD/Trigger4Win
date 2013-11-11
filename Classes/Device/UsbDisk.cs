@@ -1,6 +1,6 @@
 ﻿using System.Management;
 
-namespace Tasker.Classes.Device
+namespace Trigger.Classes.Device
 {
 	public class UsbDisk : StorageDisk
 	{

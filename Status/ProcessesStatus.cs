@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using Diag = System.Diagnostics;
-using Tasker.Events;
+using Trigger.Events;
 
-namespace Tasker.Status
+namespace Trigger.Status
 {
 	public static class Processes
 	{

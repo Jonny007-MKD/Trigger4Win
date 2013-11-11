@@ -1,7 +1,7 @@
 ﻿// by Anthony Baraff
 // http://www.codeproject.com/Articles/2171/Windows-Message-ID-constants
 
-namespace Tasker.Classes.System
+namespace Trigger.Classes.System
 {
 	public enum WindowsMessages : int
 	{

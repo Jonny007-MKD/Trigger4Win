@@ -4,7 +4,7 @@ using Forms = System.Windows.Forms;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace Tasker.Classes.Screen
+namespace Trigger.Classes.Screen
 {
 	/// <summary>For fixed-resolution display devices only, how the display presents a low-resolution mode on a higher-resolution display. For example, if a display device's resolution is fixed at 1024 x 768 pixels but its mode is set to 640 x 480 pixels, the device can either display a 640 x 480 image somewhere in the interior of the 1024 x 768 screen space or stretch the 640 x 480 image to fill the larger screen space</summary>
 	public enum FixedOutput : byte

@@ -1,8 +1,8 @@
 ﻿using System.Runtime.InteropServices;
-using Tasker.Classes.Screen;
+using Trigger.Classes.Screen;
 using System;
 
-namespace Tasker.Actions
+namespace Trigger.Actions
 {
 	public class Screen
 	{

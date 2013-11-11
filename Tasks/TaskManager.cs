@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Tasker.Tasks
+namespace Trigger.Tasks
 {
 	/// <summary>
 	/// <para>This <see cref="Manager"/> takes care of all available <see cref="TaskPlugin"/>s and automatically loads them on startup</para>
@@ -61,7 +61,7 @@ namespace Tasker.Tasks
 		private List<Type> getAvailableTasks()
 		{
 			List<Type> types = new List<Type>(System.Reflection.Assembly.GetExecutingAssembly().GetTypes());
-			types = types.FindAll(new Predicate<Type>(item => { return item.BaseType == typeof(TaskPlugin) && item.Namespace.StartsWith("Tasker.Tasks"); }));
+			types = types.FindAll(new Predicate<Type>(item => { return item.BaseType == typeof(TaskPlugin) && item.Namespace.StartsWith("Trigger.Tasks"); }));
 			return types;
 		}
 

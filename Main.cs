@@ -7,7 +7,7 @@ using System.Diagnostics;
 //System.IO.FileSystemWatcher
 
 
-namespace Tasker
+namespace Trigger
 {
 	/// <summary>
 	/// <para>The main <see cref="Form"/></para>
@@ -66,7 +66,7 @@ namespace Tasker
 			procStart.UseShellExecute = true;
 			procStart.Verb = "runas";	// run as Admin
 
-			this.Log.LogLineDate("Requiring admin privileges...", Tasker.Log.Type.Other);
+			this.Log.LogLineDate("Requiring admin privileges...", Trigger.Log.Type.Other);
 
 			try
 			{

@@ -2,7 +2,7 @@
 using System.Management;
 using System.Text;
 
-namespace Tasker.Classes.Device
+namespace Trigger.Classes.Device
 {
 	public class Partition
 	{

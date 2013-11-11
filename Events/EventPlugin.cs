@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 
-namespace Tasker.Events
+namespace Trigger.Events
 {
 	/// <summary>
 	/// <para>An abstract class that every event plugin has to inherit from</para>

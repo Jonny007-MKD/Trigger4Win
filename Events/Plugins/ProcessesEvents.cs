@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using Diag = System.Diagnostics;
 
-namespace Tasker.Events
+namespace Trigger.Events
 {
 	public class Processes : EventPlugin
 	{

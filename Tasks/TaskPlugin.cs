@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace Tasker.Tasks
+namespace Trigger.Tasks
 {
 	abstract class TaskPlugin
 	{

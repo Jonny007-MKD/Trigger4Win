@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace Tasker.Actions
+namespace Trigger.Actions
 {
 	public class Power
 	{

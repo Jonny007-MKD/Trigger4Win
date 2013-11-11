@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Windows.Forms;
 
-namespace Tasker.Events
+namespace Trigger.Events
 {
 	sealed class Network : EventPlugin
 	{

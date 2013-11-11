@@ -5,7 +5,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Tasker.Tasks
+namespace Trigger.Tasks
 {
 	class LogNetworkEvents : TaskPlugin
 	{

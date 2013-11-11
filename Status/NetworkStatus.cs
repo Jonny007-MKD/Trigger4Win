@@ -6,7 +6,7 @@ using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace Tasker.Status
+namespace Trigger.Status
 {
 	static class Network
 	{

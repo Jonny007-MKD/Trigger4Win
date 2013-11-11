@@ -2,7 +2,7 @@
 using System;
 using System.Configuration;
 
-namespace Tasker
+namespace Trigger
 {
 	/// <summary>
 	/// <para>A <see cref="Form"/> for logging purposes</para>

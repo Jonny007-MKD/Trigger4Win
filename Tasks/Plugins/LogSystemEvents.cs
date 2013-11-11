@@ -3,7 +3,7 @@ using System.Drawing;
 using Microsoft.Win32;
 using System.Windows.Forms;
 
-namespace Tasker.Tasks
+namespace Trigger.Tasks
 {
 	class LogSystemEvents : TaskPlugin
 	{

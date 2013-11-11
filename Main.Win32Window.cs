@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using Tasker.Events;
+using Trigger.Events;
 
-namespace Tasker
+namespace Trigger
 {
 	partial class Main : Form
 	{

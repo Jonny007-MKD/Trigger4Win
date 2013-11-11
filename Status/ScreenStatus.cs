@@ -6,9 +6,9 @@ using System.Drawing.Text;
 using System.Windows.Forms;
 using Forms = System.Windows.Forms;
 using System.Runtime.InteropServices;
-using Tasker.Classes.Screen;
+using Trigger.Classes.Screen;
 
-namespace Tasker.Status
+namespace Trigger.Status
 {
 	static class Screen
 	{

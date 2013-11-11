@@ -6,7 +6,7 @@ using System.Drawing.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 
-namespace Tasker.Status
+namespace Trigger.Status
 {
 	static class System
 	{

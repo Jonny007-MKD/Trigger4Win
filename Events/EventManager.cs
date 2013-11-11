@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Tasker.Events
+namespace Trigger.Events
 {
 	/// <summary>
 	/// <para>This <see cref="Manager"/> takes care of all available <see cref="EventPlugin"/>s and provides access to instances of them when a <see cref="Tasks.TaskPlugin"/> needs it</para>
@@ -40,7 +40,7 @@ namespace Tasker.Events
 			this.Log = Main.Log;
 
 			List<Type> types = new List<Systemm.Type>(Systemm.Reflection.Assembly.GetExecutingAssembly().GetTypes());
-			this.EventPluginTypes = types.FindAll(new Systemm.Predicate<Systemm.Type>(item => { return item.BaseType == typeof(EventPlugin) && item.Namespace == "Tasker.Events"; }));
+			this.EventPluginTypes = types.FindAll(new Systemm.Predicate<Systemm.Type>(item => { return item.BaseType == typeof(EventPlugin) && item.Namespace == "Trigger.Events"; }));
 		}
 		#endregion
 

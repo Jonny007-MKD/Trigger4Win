@@ -2,9 +2,9 @@
 using System.Drawing;
 using Microsoft.Win32;
 using System.Windows.Forms;
-using Tasker.Classes.Power;
+using Trigger.Classes.Power;
 
-namespace Tasker.Tasks
+namespace Trigger.Tasks
 {
 	class LogPowerEvents : TaskPlugin
 	{
@@ -62,22 +62,22 @@ namespace Tasker.Tasks
 		private void pwrEvents_PowerLineStatusChanged(object sender, Events.EventArgsValues<PowerLineStatus> e)
 		{
 			if (e.NewValue == PowerLineStatus.Online)
-				this.Log.LogLineDate("The computer was connected to the power network", Tasker.Log.Type.PowerEvent);
+				this.Log.LogLineDate("The computer was connected to the power network", Trigger.Log.Type.PowerEvent);
 			else
-				this.Log.LogLineDate("The computer was disconnected from the power network", Tasker.Log.Type.PowerEvent);
+				this.Log.LogLineDate("The computer was disconnected from the power network", Trigger.Log.Type.PowerEvent);
 		}
 
 		private void pwrEvents_BatteryAvailabilityChanged(object sender, Events.EventArgsValue<bool?> e)
 		{
 			if (e.Value.Value == true)
-				this.Log.LogLineDate("A battery was connected", Tasker.Log.Type.PowerEvent);
+				this.Log.LogLineDate("A battery was connected", Trigger.Log.Type.PowerEvent);
 			else
-				this.Log.LogLineDate("A battery was disconnected", Tasker.Log.Type.PowerEvent);
+				this.Log.LogLineDate("A battery was disconnected", Trigger.Log.Type.PowerEvent);
 		}
 
 		private void pwrEvents_BatteryStatusChanged(object sender, Events.EventArgsValues<BatteryChargeStatus> e)
 		{
-			this.Log.LogLineDate("The status of the battery changed: " + e.OldValue.ToString() + " -> " + e.NewValue.ToString() + " (" + Status.Power.BatteryLifePercent.ToString() + "%)", Tasker.Log.Type.PowerEvent);
+			this.Log.LogLineDate("The status of the battery changed: " + e.OldValue.ToString() + " -> " + e.NewValue.ToString() + " (" + Status.Power.BatteryLifePercent.ToString() + "%)", Trigger.Log.Type.PowerEvent);
 		}
 
 
@@ -88,7 +88,7 @@ namespace Tasker.Tasks
 
 		private void pwrEvents_PowerSchemeChanged(object sender, Events.EventArgsValues<PowerScheme> e)
 		{
-			this.Log.LogLineDate("Power scheme changed: " + e.OldValue.Name + " --> " + e.NewValue.Name, Tasker.Log.Type.PowerEvent);
+			this.Log.LogLineDate("Power scheme changed: " + e.OldValue.Name + " --> " + e.NewValue.Name, Trigger.Log.Type.PowerEvent);
 		}
 		#endregion
 	}

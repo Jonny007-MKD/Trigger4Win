@@ -2,9 +2,9 @@
 using System.Drawing;
 using Microsoft.Win32;
 using System.Windows.Forms;
-using Tasker.Classes.Screen;
+using Trigger.Classes.Screen;
 
-namespace Tasker.Tasks
+namespace Trigger.Tasks
 {
 	class LogScreenEvents : TaskPlugin
 	{

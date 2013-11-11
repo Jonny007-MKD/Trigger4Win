@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Management;
 
-namespace Tasker.Classes.Device
+namespace Trigger.Classes.Device
 {
 	/// <summary>
 	/// <para>The Win32_CDROMDrive WMI class represents a CD-ROM drive on a computer system running Windows. Be aware that the name of the drive does not correspond to the logical drive letter assigned to the device.</para>

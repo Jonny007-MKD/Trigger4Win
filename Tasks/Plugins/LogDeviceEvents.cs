@@ -2,9 +2,9 @@
 using System.Drawing;
 using Microsoft.Win32;
 using System.Windows.Forms;
-using Tasker.Classes.Device;
+using Trigger.Classes.Device;
 
-namespace Tasker.Tasks
+namespace Trigger.Tasks
 {
 	class LogDeviceEvents : TaskPlugin
 	{
@@ -43,32 +43,32 @@ namespace Tasker.Tasks
 		#region Event handlers
 		private void devEvents_DeviceArrived(object sender, Events.EventArgsValue<Device> e)
 		{
-			this.Log.LogLineDate("New device arrived: " + e.Value.Model, Tasker.Log.Type.DeviceEvent);
+			this.Log.LogLineDate("New device arrived: " + e.Value.Model, Trigger.Log.Type.DeviceEvent);
 		}
 
 		private void devEvents_DeviceQueryRemove(object sender, Events.EventArgsValue<Device> e)
 		{
-			this.Log.LogLineDate("Device is queried to be removed: " + e.Value.Model, Tasker.Log.Type.DeviceEvent);
+			this.Log.LogLineDate("Device is queried to be removed: " + e.Value.Model, Trigger.Log.Type.DeviceEvent);
 		}
 
 		private void devEvents_DeviceQueryRemoveFailed(object sender, Events.EventArgsValue<Device> e)
 		{
-			this.Log.LogLineDate("Device could not be removed: " + e.Value.Model, Tasker.Log.Type.DeviceEvent);
+			this.Log.LogLineDate("Device could not be removed: " + e.Value.Model, Trigger.Log.Type.DeviceEvent);
 		}
 
 		private void devEvents_DeviceRemoved(object sender, Events.EventArgsValue<Device> e)
 		{
-			this.Log.LogLineDate("A device was removed: " + e.Value.Model, Tasker.Log.Type.DeviceEvent);
+			this.Log.LogLineDate("A device was removed: " + e.Value.Model, Trigger.Log.Type.DeviceEvent);
 		}
 
 		private void devEvents_MediaInserted(object sender, Events.EventArgsValue<Device> e)
 		{
-			this.Log.LogLineDate("Media inserted in " + e.Value.Model, Tasker.Log.Type.DeviceEvent);
+			this.Log.LogLineDate("Media inserted in " + e.Value.Model, Trigger.Log.Type.DeviceEvent);
 		}
 
 		private void devEvents_NetworkVolumeArrived(object sender, Events.EventArgsValue<Device> e)
 		{
-			this.Log.LogLineDate("New network volume arrived: " + e.Value.Model, Tasker.Log.Type.DeviceEvent);
+			this.Log.LogLineDate("New network volume arrived: " + e.Value.Model, Trigger.Log.Type.DeviceEvent);
 		}
 		#endregion
 	}

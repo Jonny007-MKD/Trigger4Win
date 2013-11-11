@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace Tasker
+namespace Trigger
 {
 	/// <summary>
 	/// <para>This is a <see cref="Form"/> that displays all available information from the <see cref="Events.Manager"/> and the <see cref="Tasks.Manager"/></para>
@@ -68,7 +68,7 @@ namespace Tasker
 		private List<Type> getAvailableStatus()
 		{
 			List<Type> types = new List<Type>(System.Reflection.Assembly.GetExecutingAssembly().GetTypes());
-			types = types.FindAll(new Predicate<Type>(item => { return item.IsClass && item.Namespace.StartsWith("Tasker.Status"); }));
+			types = types.FindAll(new Predicate<Type>(item => { return item.IsClass && item.Namespace.StartsWith("Trigger.Status"); }));
 			return types;
 		}
 		#endregion

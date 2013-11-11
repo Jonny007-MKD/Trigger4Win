@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Tasker.Events
+namespace Trigger.Events
 {
 	/// <summary>
 	/// <para><see cref="EventArgs"/> that carry the new value of the event</para>

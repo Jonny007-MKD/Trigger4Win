@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace Tasker.Classes.Screen
+namespace Trigger.Classes.Screen
 {
 	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
 	public struct ScreenSettingsDevMode

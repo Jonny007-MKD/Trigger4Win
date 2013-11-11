@@ -1,4 +1,4 @@
-﻿namespace Tasker
+﻿namespace Trigger
 {
 	partial class Log
 	{
@@ -69,7 +69,7 @@
 			// tsb_Clear
 			// 
 			this.tsb_Clear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsb_Clear.Image = global::Tasker.Properties.Resources.icon_22;
+			this.tsb_Clear.Image = global::Trigger.Properties.Resources.icon_22;
 			this.tsb_Clear.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsb_Clear.Name = "tsb_Clear";
 			this.tsb_Clear.Size = new System.Drawing.Size(23, 22);
@@ -79,7 +79,7 @@
 			// tsb_Stats
 			// 
 			this.tsb_Stats.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsb_Stats.Image = global::Tasker.Properties.Resources.Chart_16x16;
+			this.tsb_Stats.Image = global::Trigger.Properties.Resources.Chart_16x16;
 			this.tsb_Stats.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsb_Stats.Name = "tsb_Stats";
 			this.tsb_Stats.Size = new System.Drawing.Size(23, 22);
@@ -91,7 +91,7 @@
 			this.tsb_Options.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
 			this.tsb_Options.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsb_Options_EnableLoggingTasks});
-			this.tsb_Options.Image = global::Tasker.Properties.Resources.Settings_24x24;
+			this.tsb_Options.Image = global::Trigger.Properties.Resources.Settings_24x24;
 			this.tsb_Options.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsb_Options.Name = "tsb_Options";
 			this.tsb_Options.Size = new System.Drawing.Size(29, 22);

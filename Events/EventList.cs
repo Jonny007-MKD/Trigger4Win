@@ -8,7 +8,7 @@ using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.ComponentModel;
 
-namespace Tasker.Events
+namespace Trigger.Events
 {
 	/// <summary>
 	///Represents the strongly named DataTable class.

@@ -8,7 +8,7 @@ using System.Net.NetworkInformation;
 
 
 
-namespace Tasker.Actions
+namespace Trigger.Actions
 {
 	class Network
 	{

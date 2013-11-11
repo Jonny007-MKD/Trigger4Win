@@ -6,10 +6,10 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.ComponentModel;
-using Tasker.Classes.Power;
-using Tasker.Classes.System;
+using Trigger.Classes.Power;
+using Trigger.Classes.System;
 
-namespace Tasker.Events
+namespace Trigger.Events
 {
 	public class Power : EventPlugin
 	{

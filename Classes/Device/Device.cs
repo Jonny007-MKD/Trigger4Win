@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Tasker.Classes.Device
+namespace Trigger.Classes.Device
 {
 	public class Device
 	{

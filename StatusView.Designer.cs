@@ -1,4 +1,4 @@
-﻿namespace Tasker
+﻿namespace Trigger
 {
 	partial class StatusView
 	{

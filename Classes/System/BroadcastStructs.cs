@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Tasker.Classes.System
+namespace Trigger.Classes.System
 {
 	/// <summary>
 	/// <para>Sent with a power setting event (WM_POWERBROADCAST / PBT_POWERSETTINGSCHANGE) and contains data about the specific change.</para>

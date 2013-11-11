@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Collections.Generic;
 
-namespace Tasker.Classes.Power
+namespace Trigger.Classes.Power
 {
 	public class PowerScheme
 	{

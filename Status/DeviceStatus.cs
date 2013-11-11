@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Tasker.Classes.Device;
+using Trigger.Classes.Device;
 using System.Windows.Forms;
 using System;
 
-namespace Tasker.Status
+namespace Trigger.Status
 {
 	public static class Device
 	{

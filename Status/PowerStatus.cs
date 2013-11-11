@@ -1,12 +1,12 @@
 ﻿using System;
 using Systemm = System;
 using System.Windows.Forms;
-using Tasker.Classes.Power;
+using Trigger.Classes.Power;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.ComponentModel;
 
-namespace Tasker.Status
+namespace Trigger.Status
 {
 	static class Power
 	{
