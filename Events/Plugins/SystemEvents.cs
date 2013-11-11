@@ -64,25 +64,6 @@ namespace Tasker.Events
 				return paletteChangedEnabled > 0;
 			}
 		}
-		private byte powerModeChangedEnabled;
-		private bool PowerModeChangedEnabled
-		{
-			set
-			{
-				if (value)
-					powerModeChangedEnabled++;
-				else
-					powerModeChangedEnabled--;
-				if (value && powerModeChangedEnabled == 1)
-					Win32_SystemEvents.PowerModeChanged += Win32_SystemEvents_PowerModeChanged;
-				else if (powerModeChangedEnabled == 0)
-					Win32_SystemEvents.PowerModeChanged -= Win32_SystemEvents_PowerModeChanged;
-			}
-			get
-			{
-				return powerModeChangedEnabled > 0;
-			}
-		}
 		private byte sessionEndingEnabled;
 		private bool SessionEndingEnabled
 		{
@@ -215,115 +196,6 @@ namespace Tasker.Events
 			{
 				this.OnPaletteChanged -= value;
 				PaletteChangedEnabled = false;
-			}
-		}
-		#endregion
-
-		#region PowerModeChanged
-		private EventPlugin.EventValue<PowerModes> OnPowerModeChanged;
-		/// <summary><para>Occurs when the user suspends or resumes the system.</para></summary>
-		public event EventPlugin.EventValue<PowerModes> PowerModeChanged
-		{
-			add
-			{
-				this.OnPowerModeChanged += value;
-				PowerModeChangedEnabled = true;
-			}
-			remove
-			{
-				this.OnPowerModeChanged -= value;
-				PowerModeChangedEnabled = false;
-			}
-		}
-		#endregion
-		#region - Suspend
-		private EventPlugin.Event OnSuspend;
-		/// <summary><para>Occurs when the user suspends the system.</para></summary>
-		public event EventPlugin.Event Suspend
-		{
-			add
-			{
-				this.OnSuspend += value;
-				PowerModeChangedEnabled = true;
-			}
-			remove
-			{
-				this.OnSuspend -= value;
-				PowerModeChangedEnabled = false;
-			}
-		}
-		#endregion
-		#region - Resume
-		private EventPlugin.Event OnResume;
-		/// <summary><para>Occurs when the user resumes the system.</para></summary>
-		public event EventPlugin.Event Resume
-		{
-			add
-			{
-				this.OnResume += value;
-				PowerModeChangedEnabled = true;
-			}
-			remove
-			{
-				this.OnResume -= value;
-				PowerModeChangedEnabled = false;
-			}
-		}
-		#endregion
-		#region - PowerLineStatusChanged
-		private EventPlugin.EventValues<PowerLineStatus> OnPowerLineStatusChanged;
-		/// <summary><para>Occurs when the user connects or disconnects the system from/to the power network.</para></summary>
-		public event EventPlugin.EventValues<PowerLineStatus> PowerLineStatusChanged
-		{
-			add
-			{
-				if (!oldValues.ContainsKey(EventType.PowerLineStatusChanged))
-					oldValues[EventType.PowerLineStatusChanged] = Status.System.PowerLineStatus;
-				this.OnPowerLineStatusChanged += value;
-				PowerModeChangedEnabled = true;
-			}
-			remove
-			{
-				this.OnPowerLineStatusChanged -= value;
-				PowerModeChangedEnabled = false;
-			}
-		}
-		#endregion
-		#region - BatteryAvailabilityChanged
-		private EventPlugin.EventValue<bool?> OnBatteryAvailabilityChanged;
-		/// <summary><para>Occurs when the user connects or disconnects the computer from the battery.</para></summary>
-		public event EventPlugin.EventValue<bool?> BatteryAvailabilityChanged
-		{
-			add
-			{
-				if (!oldValues.ContainsKey(EventType.BatteryStatusChanged))
-					oldValues[EventType.BatteryStatusChanged] = Status.System.BatteryChargeStatus;
-				this.OnBatteryAvailabilityChanged += value;
-				PowerModeChangedEnabled = true;
-			}
-			remove
-			{
-				this.OnBatteryAvailabilityChanged -= value;
-				PowerModeChangedEnabled = false;
-			}
-		}
-		#endregion
-		#region - BatteryStatusChanged
-		private EventPlugin.EventValues<BatteryChargeStatus> OnBatteryStatusChanged;
-		/// <summary><para>Occurs when the user connects or disconnects the computer from the battery.</para></summary>
-		public event EventPlugin.EventValues<BatteryChargeStatus> BatteryStatusChanged
-		{
-			add
-			{
-				if (!oldValues.ContainsKey(EventType.BatteryStatusChanged))
-					oldValues[EventType.BatteryStatusChanged] = Status.System.BatteryChargeStatus;
-				this.OnBatteryStatusChanged += value;
-				PowerModeChangedEnabled = true;
-			}
-			remove
-			{
-				this.OnBatteryStatusChanged -= value;
-				PowerModeChangedEnabled = false;
 			}
 		}
 		#endregion
@@ -805,8 +677,6 @@ namespace Tasker.Events
 				Win32_SystemEvents.InstalledFontsChanged -= Win32_SystemEvents_InstalledFontsChanged;
 			if (paletteChangedEnabled > 0)
 				Win32_SystemEvents.PaletteChanged -= Win32_SystemEvents_PaletteChanged;
-			if (powerModeChangedEnabled > 0)
-				Win32_SystemEvents.PowerModeChanged -= Win32_SystemEvents_PowerModeChanged;
 			if (sessionEndingEnabled > 0)
 				Win32_SystemEvents.SessionEnding -= Win32_SystemEvents_SessionEnding;
 			if (sessionSwitchEnabled > 0)
@@ -1013,11 +883,6 @@ namespace Tasker.Events
 				TreeNode tnEvent = tnEvents.Nodes.Add("PaletteChanged");
 				tnEvent.ToolTipText = "Microsoft.Win32.SystemEvents.PaletteChanged";
 			}
-			if (PowerModeChangedEnabled)
-			{
-				TreeNode tnEvent = tnEvents.Nodes.Add("PowerModeChanged");
-				tnEvent.ToolTipText = "Microsoft.Win32.SystemEvents.PowerModeChanged";
-			}
 			if (SessionEndingEnabled)
 			{
 				TreeNode tnEvent = tnEvents.Nodes.Add("SessionEnding");
@@ -1068,62 +933,6 @@ namespace Tasker.Events
 		{
 			if (OnPaletteChanged != null)
 				OnPaletteChanged(this, e);
-		}
-
-		void Win32_SystemEvents_PowerModeChanged(object sender, PowerModeChangedEventArgs e)
-		{
-			if (OnPowerModeChanged != null)
-				OnPowerModeChanged(this, new EventArgsValue<PowerModes>(e.Mode));
-			switch (e.Mode)
-			{
-				case PowerModes.Resume:
-					if (OnResume != null)
-						OnResume(this, new EventArgs());
-					break;
-				case PowerModes.Suspend:
-					if (OnSuspend != null)
-						OnSuspend(this, new EventArgs());
-					break;
-				case PowerModes.StatusChange:
-					if (OnPowerLineStatusChanged != null)
-					{
-						PowerLineStatus oldValuePLS = (PowerLineStatus)oldValues[EventType.PowerLineStatusChanged];
-						PowerLineStatus newValuePLS = Status.System.PowerLineStatus;
-						if (oldValuePLS != newValuePLS)
-						{
-							OnPowerLineStatusChanged(this, new EventArgsValues<PowerLineStatus>(oldValuePLS, newValuePLS));
-							oldValues[EventType.PowerLineStatusChanged] = newValuePLS;
-						}
-					}
-					BatteryChargeStatus oldValueBCS = (BatteryChargeStatus)oldValues[EventType.BatteryStatusChanged];
-					BatteryChargeStatus newValueBCS = Status.System.BatteryChargeStatus;
-					if (OnBatteryStatusChanged != null)
-					{
-						if (oldValueBCS != newValueBCS)
-						{
-							OnBatteryStatusChanged(this, new EventArgsValues<BatteryChargeStatus>(oldValueBCS, newValueBCS));
-							oldValues[EventType.BatteryStatusChanged] = newValueBCS;
-						}
-					}
-					if (OnBatteryAvailabilityChanged != null)
-					{
-						bool? oldValueBCSb = null, newValueBCSb = null;
-						if (oldValueBCS == BatteryChargeStatus.NoSystemBattery)
-							oldValueBCSb = false;
-						else if (oldValueBCS != BatteryChargeStatus.Unknown)
-							oldValueBCSb = true;
-						if (newValueBCS == BatteryChargeStatus.NoSystemBattery)
-							newValueBCSb = false;
-						else if (newValueBCS != BatteryChargeStatus.Unknown)
-							newValueBCSb = true;
-
-						if (oldValueBCSb != newValueBCSb)
-						{
-							OnBatteryAvailabilityChanged(this, new EventArgsValue<bool?>(newValueBCSb));
-						}
-					}
-					break;
-			}
 		}
 
 		void Win32_SystemEvents_SessionEnding(object sender, SessionEndingEventArgs e)
