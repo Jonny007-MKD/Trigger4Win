@@ -178,17 +178,4 @@ namespace Tasker.Classes.Screen
 			this.dmSize = (short)Marshal.SizeOf(this);
 		}
 	};
-
-	public partial class Scraseen
-	{
-		// constants
-		private const int DMDO_DEFAULT = 0;
-		private const int DMDO_90 = 1;
-		private const int DMDO_180 = 2;
-		private const int DMDO_270 = 3;
-
-		private const int DISP_CHANGE_SUCCESSFUL = 0;
-		private const int DISP_CHANGE_RESTART = 1;
-		private const int DISP_CHANGE_FAILED = -1;
-	}
 }
