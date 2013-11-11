@@ -56,15 +56,12 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\..\CommandLine.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>CommandLine.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="Attributes\BaseOptionAttribute.cs" />
     <Compile Include="Attributes\OptionAttribute.cs" />
     <Compile Include="Attributes\OptionArrayAttribute.cs" />
@@ -129,6 +126,7 @@
   </Target>
   -->
   <ItemGroup>
+    <None Include="CommandLine.snk" />
     <None Include="Infrastructure\SR.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SR.strings.cs</LastGenOutput>

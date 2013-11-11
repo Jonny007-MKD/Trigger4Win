@@ -61,12 +61,14 @@
     <ApplicationIcon>icon-all.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Tasker.Program</StartupObject>
+    <StartupObject>Trigger.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -118,6 +120,9 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Main.SingleInstance.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Main.Win32Window.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,10 +144,8 @@
     <Compile Include="Tasks\Plugins\LogPowerEvents.cs" />
     <Compile Include="Tasks\Plugins\LogProcessesEvents.cs" />
     <Compile Include="Tasks\Plugins\LogScreenEvents.cs" />
-    <Compile Include="Tasks\Plugins\OnHibernate.cs" />
     <Compile Include="Tasks\TaskPlugin.cs" />
     <Compile Include="Tasks\Plugins\LogSystemEvents.cs" />
-    <Compile Include="Tasks\Plugins\ProxyHska.cs" />
     <Compile Include="Tasks\Plugins\LogNetworkEvents.cs" />
     <Compile Include="Tasks\TaskManager.cs" />
     <EmbeddedResource Include="Log.resx">
@@ -165,6 +168,7 @@
       <DependentUpon>StatusView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <Compile Include="Program.Options.cs" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

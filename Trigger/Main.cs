@@ -27,13 +27,7 @@ namespace Trigger
 		/// <summary></summary>
 		public Main()
 		{
-			InitializeComponent();
-
-			this.Log = new Log(this);
-			this.Log.Show();
-			this.EventMgr = new Events.Manager(this);
-			this.TaskMgr = new Tasks.Manager(this);
-			this.Log.LogLine(new String('-', 32), Log.Type.Other);
+			this.Visible = false;
 		}
 		#endregion
 
