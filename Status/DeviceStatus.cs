@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Tasker.Classes.Device;
+using System.Windows.Forms;
+using System;
 
 namespace Tasker.Status
 {
@@ -14,6 +16,15 @@ namespace Tasker.Status
 			{
 				return StorageDisk.GetAvailableDisks();
 			}
+		}
+
+		public static TreeNode GetStatus()
+		{
+			List<StorageDisk> availableDisks = AvailableDisks;
+			TreeNode tnMain = new TreeNode("Device (" + availableDisks.Count + ")");
+			availableDisks.ForEach(new Action<StorageDisk>(sd => tnMain.Nodes.Add(sd.ToString())));
+
+			return tnMain;
 		}
 	}
 }

@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace Tasker
@@ -41,6 +37,17 @@ namespace Tasker
 			this.treeView.Nodes.Add(this.Main.EventMgr.GetStatus());
 			this.treeView.Nodes.Add(this.Main.TaskMgr.GetStatus());
 
+
+			TreeNode tnStatus = this.treeView.Nodes.Add("System Status");
+			List<Type> statusPlugins = this.getAvailableStatus();
+			foreach (Type statusPlugin in statusPlugins)
+			{
+				MethodInfo getStatus = statusPlugin.GetMethod("GetStatus");
+				if (getStatus != null)
+					tnStatus.Nodes.Add((TreeNode)getStatus.Invoke(null, null));
+			}
+
+
 			TreeNode tnProcess = this.treeView.Nodes.Add("Process data");
 			Process process = Process.GetCurrentProcess();
 			tnProcess.Nodes.Add("Nonpaged Memory usage: " + (process.NonpagedSystemMemorySize64 / 1024).ToString() + "kB");
@@ -50,11 +57,19 @@ namespace Tasker
 			tnProcess.Nodes.Add("Total Processor time:  " + process.TotalProcessorTime.TotalSeconds.ToString() + "s");
 			tnProcess.Nodes.Add("User Processor time:   " + process.UserProcessorTime.TotalSeconds.ToString() + "s");
 
-			TreeNode tnStatus = this.treeView.Nodes.Add("System Status");
-			tnStatus.Nodes.Add(Status.System.GetStatus());
-			tnStatus.Nodes.Add(Status.Network.GetStatus());
-			tnStatus.Nodes.Add(Status.Screen.GetStatus());
 			base.Refresh();
+		}
+
+
+		/// <summary>
+		/// <para>Gets a list of all available <see cref="TaskPlugin"/>s using Reflection</para>
+		/// </summary>
+		/// <returns></returns>
+		private List<Type> getAvailableStatus()
+		{
+			List<Type> types = new List<Type>(System.Reflection.Assembly.GetExecutingAssembly().GetTypes());
+			types = types.FindAll(new Predicate<Type>(item => { return item.IsClass && item.Namespace.StartsWith("Tasker.Status"); }));
+			return types;
 		}
 		#endregion
 

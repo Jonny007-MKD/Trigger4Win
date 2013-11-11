@@ -129,7 +129,7 @@
     <Compile Include="StatusView.Designer.cs">
       <DependentUpon>StatusView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Status\Device.cs" />
+    <Compile Include="Status\DeviceStatus.cs" />
     <Compile Include="Status\PowerStatus.cs" />
     <Compile Include="Status\ProcessesStatus.cs" />
     <Compile Include="Status\ScreenStatus.cs" />
