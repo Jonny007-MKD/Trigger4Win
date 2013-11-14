@@ -24,18 +24,8 @@ namespace Trigger
 			ProcessesEvent,
 			/// <summary><para>This is a device event</para></summary>
 			DeviceEvent,
-			/// <summary><para>This is a network action</para></summary>
-			NetworkAction,
-			/// <summary><para>This is a system action</para></summary>
-			SystemAction,
-			/// <summary><para>This is a power action</para></summary>
-			PowerAction,
-			/// <summary><para>This is a screen action</para></summary>
-			ScreenAction,
-			/// <summary><para>This is a process action</para></summary>
-			ProcessesAction,
-			/// <summary><para>This is a device action</para></summary>
-			DeviceAction,
+			/// <summary><para>This is an action</para></summary>
+			Action,
 			/// <summary><para>This is an message without type</para></summary>
 			Other,
 			/// <summary><para>This is an error message</para></summary>
@@ -147,9 +137,24 @@ namespace Trigger
 			this.txt.AppendText("\n");
 			this.txt.ScrollToCaret();
 		}
+
+
+		new public void Show()
+		{
+			this.BringToFront();
+			this.WindowState = FormWindowState.Normal;
+			Actions.System.SetForegroundWindow(this);
+			this.Main.tsmNotifyIcon_Log.Visible = false;
+			base.Show();
+		}
+		new public void Hide()
+		{
+			this.Main.tsmNotifyIcon_Log.Visible = true;
+			base.Hide();
+		}
 		#endregion
 
-		#region Events
+		#region Event handlers
 		/// <summary>
 		/// <para>Prevent this form from closing, simply hide it</para>
 		/// <para>This is neccessary because we may want to have a look at the log later again</para>
@@ -161,7 +166,6 @@ namespace Trigger
 			if (e.CloseReason == CloseReason.UserClosing)
 			{
 				this.Hide();
-				this.Main.tsmNotifyIcon_Log.Visible = true;
 				e.Cancel = true;
 			}
 		}

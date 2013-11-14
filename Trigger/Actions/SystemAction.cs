@@ -69,23 +69,59 @@ namespace Trigger.Actions
 		#endregion
 
 		#region Dll Imports
-		[DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+		[DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true, ExactSpelling = true)]
 		private static extern bool LockWorkStation();
 
-		[DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+		[DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true, ExactSpelling = true)]
 		private static extern bool ExitWindowsEx(uint uFlags, int dwReason);
 
-		[DllImport("kernel32.dll", ExactSpelling = true)]
+		[DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true, ExactSpelling = true)]
 		internal static extern IntPtr GetCurrentProcess();
 
-		[DllImport("advapi32.dll", ExactSpelling = true, SetLastError = true)]
+		[DllImport("advapi32.dll", CharSet = CharSet.Unicode, SetLastError = true, ExactSpelling = true)]
 		internal static extern bool OpenProcessToken(IntPtr h, int acc, ref IntPtr phtok);
 
-		[DllImport("advapi32.dll", SetLastError = true)]
+		[DllImport("advapi32.dll", CharSet = CharSet.Unicode, SetLastError = true, ExactSpelling = true)]
 		internal static extern bool LookupPrivilegeValue(string host, string name, ref long pluid);
 
-		[DllImport("advapi32.dll", ExactSpelling = true, SetLastError = true)]
+		[DllImport("advapi32.dll", CharSet = CharSet.Unicode, SetLastError = true, ExactSpelling = true)]
 		internal static extern bool AdjustTokenPrivileges(IntPtr htok, bool disall, ref TokPriv1Luid newst, int len, IntPtr prev, IntPtr relen);
+
+		/// <summary>
+		/// <para>Brings the thread that created the specified window into the foreground and activates the window. Keyboard input is directed to the window, and various visual cues are changed for the user. The system assigns a slightly higher priority to the thread that created the foreground window than it does to other threads.</para>
+		/// </summary>
+		/// <param name="hWnd">A handle to the window that should be activated and brought to the foreground. </param>
+		/// <returns>If the window was brought to the foreground, the return value is nonzero. If the window was not brought to the foreground, the return value is zero.</returns>
+		/// <remarks>
+		/// <para>The system restricts which processes can set the foreground window. A process can set the foreground window only if one of the following conditions is true:
+		/// <list>
+		/// <item>The process is the foreground process.</item>
+		/// <item>The process was started by the foreground process.</item>
+		/// <item>The process received the last input event.</item>
+		/// <item>There is no foreground process.</item>
+		/// <item>The process is being debugged.</item>
+		/// <item>The foreground process is not a Modern Application or the Start Screen.</item>
+		/// <item>The foreground is not locked.</item>
+		/// <item>The foreground lock time-out has expired.</item>
+		/// <item>No menus are active.</item>
+		/// </list>
+		/// </para>
+		/// <para>An application cannot force a window to the foreground while the user is working with another window. Instead, Windows flashes the taskbar button of the window to notify the user.</para>
+		/// </remarks>
+		[DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true, ExactSpelling = true)]
+		public static extern bool SetForegroundWindow(IntPtr hWnd);
+
+		/// <summary>
+		/// <para>Retrieves a handle to the top-level window whose class name and window name match the specified strings. This function does not search child windows. This function does not perform a case-sensitive search.</para>
+		/// </summary>
+		/// <param name="lpClassName">
+		/// <para>The class name can be any name registered with RegisterClass or RegisterClassEx, or any of the predefined control-class names. This is not your .NET class name!</para>
+		/// <para>If lpClassName is NULL, it finds any window whose title matches the lpWindowName parameter.</para>
+		/// </param>
+		/// <param name="lpWindowName">The window name (the window's title). If this parameter is NULL, all window names match. This may be the Text property of your <see cref="Form"/></param>
+		/// <returns>If the function succeeds, the return value is a handle to the window that has the specified class name and window name.</returns>
+		[DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true, ExactSpelling = true)]
+		public static extern IntPtr FindWindowW(string lpClassName, string lpWindowName);
 		#endregion
 
 		#region Methods
@@ -109,8 +145,34 @@ namespace Trigger.Actions
 			ok = AdjustTokenPrivileges(htok, false, ref tp, 0, IntPtr.Zero, IntPtr.Zero);
 			hasShutdownPrivilege = true;
 		}
-		#endregion
 
+		/// <summary>
+		/// <para>Brings the thread that created the specified window into the foreground and activates the window. Keyboard input is directed to the window, and various visual cues are changed for the user. The system assigns a slightly higher priority to the thread that created the foreground window than it does to other threads.</para>
+		/// </summary>
+		/// <param name="form">The <see cref="Form"/> that shall be brought to the foreground</param>
+		/// <returns>If the window was brought to the foreground, the return value is nonzero. If the window was not brought to the foreground, the return value is zero.</returns>
+		/// <remarks>
+		/// <para>The system restricts which processes can set the foreground window. A process can set the foreground window only if one of the following conditions is true:
+		/// <list>
+		/// <item>The process is the foreground process.</item>
+		/// <item>The process was started by the foreground process.</item>
+		/// <item>The process received the last input event.</item>
+		/// <item>There is no foreground process.</item>
+		/// <item>The process is being debugged.</item>
+		/// <item>The foreground process is not a Modern Application or the Start Screen.</item>
+		/// <item>The foreground is not locked.</item>
+		/// <item>The foreground lock time-out has expired.</item>
+		/// <item>No menus are active.</item>
+		/// </list>
+		/// </para>
+		/// <para>An application cannot force a window to the foreground while the user is working with another window. Instead, Windows flashes the taskbar button of the window to notify the user.</para>
+		/// </remarks>
+		public static bool SetForegroundWindow(Form form)
+		{
+			return SetForegroundWindow(form.Handle);
+		}
+
+		#region Lock, Logoff, Shutdown, ...
 		/// <summary>
 		/// <para>Locks the workstation's display. Locking a workstation protects it from unauthorized use.</para>
 		/// </summary>
@@ -217,5 +279,7 @@ namespace Trigger.Actions
 			getShutdownPrivilege();
 			return ExitWindowsEx((uint)EWX.LOGOFF, 0);
 		}
+		#endregion
+		#endregion
 	}
 }

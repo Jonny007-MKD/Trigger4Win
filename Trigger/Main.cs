@@ -119,10 +119,13 @@ namespace Trigger
 		private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
 			this.Log.Show();
-			this.Log.BringToFront();
-			tsmNotifyIcon_Log.Visible = false;
 		}
 
+		/// <summary>
+		/// <para>Show <see cref="StatusView"/>: <see cref="RefreshStatus"/></para>
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void tsmNotifyIcon_Status_Click(object sender, EventArgs e)
 		{
 			this.RefreshStatus();
