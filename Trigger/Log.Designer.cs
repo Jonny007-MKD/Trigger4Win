@@ -30,12 +30,13 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Log));
 			this.txt = new System.Windows.Forms.RichTextBox();
-			this.toolStrip = new System.Windows.Forms.ToolStrip();
 			this.tsb_Clear = new System.Windows.Forms.ToolStripButton();
 			this.tsb_Stats = new System.Windows.Forms.ToolStripButton();
 			this.tsb_Options = new System.Windows.Forms.ToolStripDropDownButton();
 			this.tsb_Options_EnableLoggingTasks = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStrip.SuspendLayout();
+			this.tsb_Exit = new System.Windows.Forms.ToolStripButton();
+			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+			this.toolStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// txt
@@ -53,23 +54,12 @@
 			this.txt.TabIndex = 0;
 			this.txt.Text = "";
 			this.txt.WordWrap = false;
-			// 
-			// toolStrip
-			// 
-			this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsb_Clear,
-            this.tsb_Stats,
-            this.tsb_Options});
-			this.toolStrip.Location = new System.Drawing.Point(0, 0);
-			this.toolStrip.Name = "toolStrip";
-			this.toolStrip.Size = new System.Drawing.Size(548, 25);
-			this.toolStrip.TabIndex = 1;
-			this.toolStrip.Text = "toolStrip";
+			this.txt.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_KeyDown);
 			// 
 			// tsb_Clear
 			// 
 			this.tsb_Clear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsb_Clear.Image = global::Trigger.Properties.Resources.icon_22;
+			this.tsb_Clear.Image = global::Trigger.Properties.Resources.Brush_16x16;
 			this.tsb_Clear.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsb_Clear.Name = "tsb_Clear";
 			this.tsb_Clear.Size = new System.Drawing.Size(23, 22);
@@ -79,7 +69,7 @@
 			// tsb_Stats
 			// 
 			this.tsb_Stats.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsb_Stats.Image = global::Trigger.Properties.Resources.Chart_16x16;
+			this.tsb_Stats.Image = global::Trigger.Properties.Resources.Statistics_24x24;
 			this.tsb_Stats.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsb_Stats.Name = "tsb_Stats";
 			this.tsb_Stats.Size = new System.Drawing.Size(23, 22);
@@ -106,19 +96,38 @@
 			this.tsb_Options_EnableLoggingTasks.ToolTipText = "(requires restart)";
 			this.tsb_Options_EnableLoggingTasks.CheckedChanged += new System.EventHandler(this.tsbOptions_EnableLoggingTasks_CheckedChanged);
 			// 
+			// tsb_Exit
+			// 
+			this.tsb_Exit.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.tsb_Exit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsb_Exit.Image = global::Trigger.Properties.Resources.Quit_24x24;
+			this.tsb_Exit.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsb_Exit.Name = "tsb_Exit";
+			this.tsb_Exit.Size = new System.Drawing.Size(23, 22);
+			this.tsb_Exit.Text = "Exit Trigger4Win";
+			this.tsb_Exit.Click += new System.EventHandler(this.tsb_Exit_Click);
+			// 
+			// toolStrip1
+			// 
+			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+			this.toolStrip1.Name = "toolStrip1";
+			this.toolStrip1.Size = new System.Drawing.Size(548, 25);
+			this.toolStrip1.TabIndex = 1;
+			this.toolStrip1.Text = "toolStrip1";
+			// 
 			// Log
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(548, 333);
-			this.Controls.Add(this.toolStrip);
+			this.Controls.Add(this.toolStrip1);
 			this.Controls.Add(this.txt);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "Log";
 			this.Text = "Log";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Log_FormClosing);
-			this.toolStrip.ResumeLayout(false);
-			this.toolStrip.PerformLayout();
+			this.toolStrip1.ResumeLayout(false);
+			this.toolStrip1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -127,11 +136,13 @@
 		#endregion
 
 		private System.Windows.Forms.RichTextBox txt;
-		private System.Windows.Forms.ToolStrip toolStrip;
 		private System.Windows.Forms.ToolStripButton tsb_Clear;
 		private System.Windows.Forms.ToolStripDropDownButton tsb_Options;
 		private System.Windows.Forms.ToolStripButton tsb_Stats;
 		private System.Windows.Forms.ToolStripMenuItem tsb_Options_EnableLoggingTasks;
+		private System.Windows.Forms.ToolStripButton tsb_Exit;
+		private System.Windows.Forms.ToolStrip toolStrip1;
+		private System.Windows.Forms.ToolStripMenuItem hiToolStripMenuItem;
 
 
 	}

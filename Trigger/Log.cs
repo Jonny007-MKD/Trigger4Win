@@ -231,6 +231,36 @@ namespace Trigger
 			else
 				Application.Restart();
 		}
+
+		/// <summary>
+		/// <para>Close the application</para>
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void tsb_Exit_Click(object sender, EventArgs e)
+		{
+			this.Main.Close();
+		}
+
+		/// <summary>
+		/// <para>Enable some keys</para>
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void txt_KeyDown(object sender, KeyEventArgs e)
+		{
+			switch (e.KeyCode)
+			{
+				case Keys.S:
+					this.Main.RefreshStatus();
+					e.Handled = true;
+					break;
+				case Keys.Escape:
+					this.Hide();
+					e.Handled = true;
+					break;
+			}
+		}
 		#endregion
 	}
 }
