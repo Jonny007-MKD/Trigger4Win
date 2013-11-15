@@ -4,6 +4,9 @@ using System.Windows.Forms;
 
 namespace Trigger.Actions
 {
+	/// <summary>
+	/// <para>Actions dealing with the system</para>
+	/// </summary>
 	public class System
 	{
 		#region Properties

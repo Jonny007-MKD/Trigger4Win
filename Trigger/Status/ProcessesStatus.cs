@@ -8,6 +8,9 @@ using Trigger.Events;
 
 namespace Trigger.Status
 {
+	/// <summary>
+	/// <para>Provides methods to get the status of the currently running tasks</para>
+	/// </summary>
 	public static class Processes
 	{
 		/// <summary>
@@ -34,6 +37,5 @@ namespace Trigger.Status
 				return new List<Process>(Process.GetProcesses());
 			}
 		}
-
 	}
 }

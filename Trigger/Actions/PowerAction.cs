@@ -3,6 +3,9 @@ using System.Windows.Forms;
 
 namespace Trigger.Actions
 {
+	/// <summary>
+	/// <para>Actions dealing with power and energy</para>
+	/// </summary>
 	public class Power
 	{
 		#region Properties

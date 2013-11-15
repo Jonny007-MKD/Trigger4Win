@@ -62,7 +62,7 @@ namespace Trigger
 
 
 		/// <summary>
-		/// <para>Gets a list of all available <see cref="TaskPlugin"/>s using Reflection</para>
+		/// <para>Gets a list of all available Status using Reflection</para>
 		/// </summary>
 		/// <returns></returns>
 		private List<Type> getAvailableStatus()

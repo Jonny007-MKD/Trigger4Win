@@ -6,9 +6,14 @@ using System.Runtime.InteropServices;
 
 namespace Trigger.Classes.Screen
 {
+	/// <summary>
+	/// <para> The <see cref="ScreenSettingsDevMode"/> (DEVMODE) data structure contains information about the initialization and environment of a printer or a display device.</para>
+	/// <para>Here it will only be used for screens</para>
+	/// </summary>
 	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
 	public struct ScreenSettingsDevMode
 	{
+		/// <summary>The name of the device</summary>
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
 		public string dmDeviceName;
 

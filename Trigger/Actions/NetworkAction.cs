@@ -422,10 +422,10 @@ namespace Trigger.Actions
 			return (int)ret == 0;		// net helpmsg %ret% may help =)
 		}
 		/// <summary>
-		/// <para>Disables the <see cref="NetworkInterface"/> with the given <paramref name="GUID"/></para>
+		/// <para>Disables the <see cref="NetworkInterface"/> <paramref name="ni"/></para>
 		/// <para>This method requires admin privileges (<see cref="Main.RequireAdministrator"/>)</para>
 		/// </summary>
-		/// <param name="GUID"><see cref="NetworkInterface"/>.Id (like {123-456-789})</param>
+		/// <param name="ni"><see cref="NetworkInterface"/></param>
 		/// <returns>
 		/// <para>Whether the call was successful or not</para>
 		/// <para>Sometimes this method works but a error code is returned anyway...</para>

@@ -7,6 +7,10 @@ using Diag = System.Diagnostics;
 
 namespace Trigger.Events
 {
+	/// <summary>
+	/// <para>A <see cref="EventPlugin"/> that provides events for Processes</para>
+	/// <para>It waits for newly created and exiting processes</para>
+	/// </summary>
 	public class Processes : EventPlugin
 	{
 		#region Properties
@@ -136,6 +140,9 @@ namespace Trigger.Events
 		#endregion*/
 
 		#region Methods
+		/// <summary>
+		/// </summary>
+		/// <returns></returns>
 		public override EventList EventNames()
 		{
 			EventList list = new EventList();
@@ -150,6 +157,9 @@ namespace Trigger.Events
 			return list;
 		}
 
+		/// <summary>
+		/// </summary>
+		/// <returns></returns>
 		public override TreeNode GetStatus()
 		{
 			TreeNode tnMain = new TreeNode("ProcessStarted");

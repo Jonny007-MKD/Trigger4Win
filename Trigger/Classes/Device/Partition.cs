@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Trigger.Classes.Device
 {
+	/// <summary>
+	/// <para>A partition of a disk</para>
+	/// </summary>
 	public class Partition
 	{
 		#region Properties
@@ -37,6 +40,9 @@ namespace Trigger.Classes.Device
 		#endregion
 
 		#region Constructors
+		/// <summary>
+		/// </summary>
+		/// <param name="mo"></param>
 		public Partition(ManagementObject mo)
 		{
 			if (mo["VolumeName"] != null)

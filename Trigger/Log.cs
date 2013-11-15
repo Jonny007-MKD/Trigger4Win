@@ -139,6 +139,9 @@ namespace Trigger
 		}
 
 
+		/// <summary>
+		/// <para>Shows this <see cref="Log"/> in the foreground</para>
+		/// </summary>
 		new public void Show()
 		{
 			this.BringToFront();
@@ -147,6 +150,9 @@ namespace Trigger
 			this.Main.tsmNotifyIcon_Log.Visible = false;
 			base.Show();
 		}
+		/// <summary>
+		/// <para>Hides this <see cref="Log"/></para>
+		/// </summary>
 		new public void Hide()
 		{
 			this.Main.tsmNotifyIcon_Log.Visible = true;
@@ -194,7 +200,7 @@ namespace Trigger
 
 		/// <summary>
 		/// <para>Opens the <see cref="StatusView"/></para>
-		/// <para>See <see cref="Main.RefreshStatus"/></para>
+		/// <para>See <see cref="Main"/>.RefreshStatus</para>
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>

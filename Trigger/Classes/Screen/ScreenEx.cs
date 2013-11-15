@@ -246,6 +246,11 @@ namespace Trigger.Classes.Screen
 		#endregion
 
 		#region Constructors
+		/// <summary>
+		/// <para>Create a new instance of <see cref="ScreenEx"/></para>
+		/// </summary>
+		/// <param name="screen"></param>
+		/// <param name="devMode">A <see cref="ScreenSettingsDevMode"/> received from <see cref="Status.Screen.EnumDisplaySettings"/></param>
 		public ScreenEx(Forms.Screen screen, ScreenSettingsDevMode devMode) : base(screen.DeviceName)
 		{
 			this.Type = DeviceType.Screen;
@@ -290,29 +295,6 @@ namespace Trigger.Classes.Screen
 			devMode.dmSpecVersion = this.SpecVersion;
 			devMode.dmSize = (short)Systemm.Runtime.InteropServices.Marshal.SizeOf(devMode);
 			return devMode;
-		}
-		#endregion
-
-		#region Operators
-		public override int GetHashCode()
-		{
-			return this.Id.GetHashCode();
-		}
-		public override bool Equals(object obj)
-		{
-			ScreenEx that = obj as ScreenEx;
-			if (that == null)
-				return false;
-			return this.Id == that.Id;
-		}
-
-		public static bool operator == (ScreenEx A, ScreenEx B)
-		{
-			return A.Id == B.Id;
-		}
-		public static bool operator != (ScreenEx A, ScreenEx B)
-		{
-			return A.Id != B.Id;
 		}
 		#endregion
 	}

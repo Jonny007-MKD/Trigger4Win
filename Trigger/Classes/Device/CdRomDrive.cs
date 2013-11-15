@@ -9,20 +9,34 @@ namespace Trigger.Classes.Device
 	public class CdRomDrive : StorageDisk
 	{
 		#region Enums
+		/// <summary>
+		/// <para>The availabilitys of the <see cref="CdRomDrive"/></para>
+		/// </summary>
 		public enum Availabilities : ushort
 		{
+			/// <summary></summary>
 			Other = 0x1,
+			/// <summary></summary>
 			Unknown = 0x2,
 			/// <summary><para>Running / Full power</para></summary>
 			Running_FullPower = 0x3,
+			/// <summary></summary>
 			Warning = 0x4,
+			/// <summary></summary>
 			InTest = 0x5,
+			/// <summary></summary>
 			NotApplicable = 0x6,
+			/// <summary></summary>
 			PowerOff = 0x7,
+			/// <summary></summary>
 			OffLine = 0x8,
+			/// <summary></summary>
 			OffDuty = 0x9,
+			/// <summary></summary>
 			Degraded = 0xA,
+			/// <summary></summary>
 			NotInstalled = 0xB,
+			/// <summary></summary>
 			InstallError = 0xC,
 			/// <summary><para>The device is known to be in a power save mode, but its exact status is unknown.</para></summary>
 			PowerSave_Unknown = 0xD,
@@ -30,28 +44,48 @@ namespace Trigger.Classes.Device
 			PowerSave_LowPowerMode = 0xE,
 			/// <summary><para>The device is not functioning, but could be brought to full power quickly.</para></summary>
 			PowerSave_Standby = 0xF,
+			/// <summary></summary>
 			PowerCycle = 0x10,
 			/// <summary><para>The device is in a warning state, though also in a power save mode.</para></summary>
 			PowerSave_Warning = 0x11,
 		}
 
+		/// <summary>
+		/// <para>The capability of the <see cref="CdRomDrive"/></para>
+		/// </summary>
 		public enum Capabilitiy : ushort
 		{
+			/// <summary></summary>
 			Unknown = 0,
+			/// <summary></summary>
 			Other = 1,
+			/// <summary></summary>
 			SequentialAccess = 2,
+			/// <summary></summary>
 			RandomAccess = 3,
+			/// <summary></summary>
 			SupportsWriting = 4,
+			/// <summary></summary>
 			Encryption = 5,
+			/// <summary></summary>
 			Compression = 6,
+			/// <summary></summary>
 			SupportsRemovableMedia = 7,
+			/// <summary></summary>
 			ManualCleaning = 8,
+			/// <summary></summary>
 			AutomaticCleaning = 9,
+			/// <summary></summary>
 			SMARTNotification = 10,
+			/// <summary></summary>
 			SupportsDualSidedMedia = 11,
+			/// <summary></summary>
 			PredismountEjectNotRequired = 12,
 		}
 
+		/// <summary>
+		/// <para>Errors and their codes that the config manager can return</para>
+		/// </summary>
 		public enum ConfigManagerErrorCodes : uint
 		{
 			///<summary><param>Device is working properly.</param></summary>
@@ -186,7 +220,7 @@ namespace Trigger.Classes.Device
 		/// <summary>
 		/// <para>Initialize a new instance with the given values.</para>
 		/// </summary>
-		/// <param name="DriveLetter">The Windows drive letter assigned to this device.</param>
+		/// <param name="mo"></param>
 		public CdRomDrive(ManagementObject mo) : base(mo["DeviceId"].ToString(), mo["Name"].ToString(), mo["Caption"].ToString())
 		{
 			this.Type = DeviceType.CD;

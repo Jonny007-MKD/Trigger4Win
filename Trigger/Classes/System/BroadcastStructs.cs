@@ -63,8 +63,8 @@ namespace Trigger.Classes.System
 		/// </summary>
 		APMSTANDBY = 0x0005,
 		/// <summary>
-		/// <para>[PBT_APMRESUMECRITICAL is available for use in Windows XP. Support for this event was removed in Windows Vista. Use PBT_APMRESUMEAUTOMATIC instead.]</para>
-		/// <para>Notifies applications that the system has resumed operation. This event can indicate that some or all applications did not receive a PBT_APMSUSPEND event. For example, this event can be broadcast after a critical suspension caused by a failing battery.</para>
+		/// <para>[<see cref="APMRESUMECRITICAL"/> is available for use in Windows XP. Support for this event was removed in Windows Vista. Use <see cref="APMRESUMEAUTOMATIC "/> instead.]</para>
+		/// <para>Notifies applications that the system has resumed operation. This event can indicate that some or all applications did not receive a <see cref="APMSUSPEND"/> event. For example, this event can be broadcast after a critical suspension caused by a failing battery.</para>
 		/// <para>lParam: Reserved, must be zero.</para>
 		/// </summary>
 		/// <remarks>
@@ -76,9 +76,9 @@ namespace Trigger.Classes.System
 		/// <para>lParam: Reserved, must be zero.</para>
 		/// </summary>
 		/// <remarks>
-		/// <para>An application can receive this event only if it received the PBT_APMSUSPEND event before the computer was suspended. Otherwise, the application will receive a PBT_APMRESUMECRITICAL event.</para>
-		/// <para>If the system wakes due to user activity (such as pressing the power button) or if the system detects user interaction at the physical console (such as mouse or keyboard input) after waking unattended, the system first broadcasts the PBT_APMRESUMEAUTOMATIC event, then it broadcasts the PBT_APMRESUMESUSPEND event. In addition, the system turns on the display. Your application should reopen files that it closed when the system entered sleep and prepare for user input.</para>
-		/// <para>If the system wakes due to an external wake signal (remote wake), the system broadcasts only the PBT_APMRESUMEAUTOMATIC event. The PBT_APMRESUMESUSPEND event is not sent.</para>
+		/// <para>An application can receive this event only if it received the <see cref="APMSUSPEND"/> event before the computer was suspended. Otherwise, the application will receive a <see cref="APMRESUMECRITICAL"/> event.</para>
+		/// <para>If the system wakes due to user activity (such as pressing the power button) or if the system detects user interaction at the physical console (such as mouse or keyboard input) after waking unattended, the system first broadcasts the <see cref="APMRESUMEAUTOMATIC"/> event, then it broadcasts the <see cref="APMRESUMESUSPEND"/> event. In addition, the system turns on the display. Your application should reopen files that it closed when the system entered sleep and prepare for user input.</para>
+		/// <para>If the system wakes due to an external wake signal (remote wake), the system broadcasts only the <see cref="APMRESUMEAUTOMATIC"/> event. The <see cref="APMRESUMESUSPEND"/> event is not sent.</para>
 		/// </remarks>
 		APMRESUMESUSPEND = 0x0007,
 		/// <summary>
@@ -86,7 +86,7 @@ namespace Trigger.Classes.System
 		/// </summary>
 		APMRESUMESTANDBY = 0x0008,
 		/// <summary>
-		/// <para>[<see cref="PBT_APMBATTERYLOW"/> is available for use in Windows XP. Support for this event was removed in Windows Vista. Use <see cref="PBT_APMPOWERSTATUSCHANGE"/> instead.]</para>
+		/// <para>[<see cref="APMBATTERYLOW"/> is available for use in Windows XP. Support for this event was removed in Windows Vista. Use <see cref="APMPOWERSTATUSCHANGE"/> instead.]</para>
 		/// <para>lParam: Reserved, must be zero</para>
 		/// </summary>
 		/// <remarks>
@@ -102,7 +102,7 @@ namespace Trigger.Classes.System
 		/// </remarks>
 		APMPOWERSTATUSCHANGE = 0x000A,
 		/// <summary>
-		/// <para>[<see cref="PBT_APMOEMEVENT"/> is available for use in Windows XP. Support for this event was removed in Windows Vista.]</para>
+		/// <para>[<see cref="APMOEMEVENT"/> is available for use in Windows XP. Support for this event was removed in Windows Vista.]</para>
 		/// <para>lParam: The OEM-defined event code that was signaled by the system's APM BIOS. OEM event codes are in the range 0200h - 02FFh.</para>
 		/// </summary>
 		/// <remarks>
@@ -114,12 +114,12 @@ namespace Trigger.Classes.System
 		/// <para>lParam: Reserved, must be zero.</para>
 		/// </summary>
 		/// <remarks>
-		/// <para>If the system detects any user activity after broadcasting PBT_APMRESUMEAUTOMATIC, it will broadcast a PBT_APMRESUMESUSPEND event to let applications know they can resume full interaction with the user.</para>
+		/// <para>If the system detects any user activity after broadcasting <see cref="APMRESUMEAUTOMATIC"/>, it will broadcast a <see cref="APMRESUMESUSPEND"/> event to let applications know they can resume full interaction with the user.</para>
 		/// </remarks>
 		APMRESUMEAUTOMATIC = 0x0012,
 		/// <summary>
 		/// <para>Power setting change event</para>
-		/// <para>lParam: Pointer to a <see cref="POWERBROADCAST_SETTING"/> structure.</para>
+		/// <para>lParam: Pointer to a <see cref="PowerBroadcast_Setting"/> structure.</para>
 		/// </summary>
 		POWERSETTINGCHANGE = 0x8013,
 	}

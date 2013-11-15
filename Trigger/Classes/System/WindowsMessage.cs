@@ -1,5 +1,6 @@
 ﻿// by Anthony Baraff
 // http://www.codeproject.com/Articles/2171/Windows-Message-ID-constants
+#pragma warning disable
 
 namespace Trigger.Classes.System
 {

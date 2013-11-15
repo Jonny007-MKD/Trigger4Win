@@ -4,9 +4,13 @@ using System;
 
 namespace Trigger.Actions
 {
+	/// <summary>
+	/// <para>Actions dealing with screens and screen settings</para>
+	/// </summary>
 	public class Screen
 	{
-		private enum DispChange : sbyte
+		#region Enums
+		internal enum DispChange : sbyte
 		{
 			/// <summary><para>The settings change was successful.</para></summary>
 			SUCCESSFUL = 0,
@@ -29,7 +33,7 @@ namespace Trigger.Actions
 		/// <para>Indicates how the graphics mode should be changed</para>
 		/// </summary>
 		[Flags]
-		private enum CDS : int
+		internal enum CDS : int
 		{
 			///<summary><para>The mode is temporary in nature.</para><para>If you change to and from another desktop, this mode will not be reset.</para></summary>
 			FULLSCREEN = 0x00000004,
@@ -54,17 +58,38 @@ namespace Trigger.Actions
 			///<summary><para>Disables settings changes to unsafe graphics modes.</para></summary>
 			DISABLE_UNSAFE_MODES = 0x00000200,
 		}
-		// PInvoke declaration for ChangeDisplaySettings Win32 API
-		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
-		private static extern int ChangeDisplaySettingsEx(string lpszDeviceName, ref ScreenSettingsDevMode lpDevMode, IntPtr hwnd, int dwFlags, IntPtr lParam);
+		#endregion
 
+		#region Dll imports
 		/// <summary>
+		/// <para>The ChangeDisplaySettingsEx function changes the settings of the specified display device to the specified graphics mode.</para>
+		/// </summary>
+		/// <param name="lpszDeviceName">
+		/// <para>String that specifies the display device whose graphics mode will change. Only display device names as returned by EnumDisplayDevices are valid.</para>
+		/// <para>The <paramref name="lpszDeviceName"/> parameter can be NULL. A NULL value specifies the default display device. The default device can be determined by calling EnumDisplayDevices and checking for the DISPLAY_DEVICE_PRIMARY_DEVICE flag.</para>
+		/// </param>
+		/// <param name="lpDevMode"><para>A pointer to a <see cref="ScreenSettingsDevMode"/> structure that describes the new graphics mode. If <paramref name="lpDevMode"/> is NULL, all the values currently in the registry will be used for the display setting. Passing NULL for the <paramref name="lpDevMode"/> parameter and 0 for the <paramref name="dwFlags"/> parameter is the easiest way to return to the default mode after a dynamic mode change.</para></param>
+		/// <param name="hwnd"></param>
+		/// <param name="dwFlags"></param>
+		/// <param name="lParam"></param>
+		/// <returns></returns>
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
+		internal static extern int ChangeDisplaySettingsEx(string lpszDeviceName, ref ScreenSettingsDevMode lpDevMode, IntPtr hwnd, int dwFlags, IntPtr lParam);
+		#endregion
+
+		#region Methods
+		/// <summary>
+		/// <para>The ChangeDisplaySettingsEx function changes the settings of the specified display device to the specified graphics mode.</para>
 		/// <para>Use this one if you are not sure</para>
 		/// </summary>
-		/// <param name="deviceName"></param>
-		/// <param name="devMode"></param>
+		/// <param name="deviceName">
+		/// <para>String that specifies the display device whose graphics mode will change. Only display device names as returned by EnumDisplayDevices are valid.</para>
+		/// <para>The <paramref name="deviceName"/> parameter can be NULL. A NULL value specifies the default display device. The default device can be determined by calling EnumDisplayDevices and checking for the DISPLAY_DEVICE_PRIMARY_DEVICE flag.</para>
+		/// </param>
+		/// <param name="devMode"><para>A pointer to a <see cref="ScreenSettingsDevMode"/> structure that describes the new graphics mode. If <paramref name="devMode"/> is NULL, all the values currently in the registry will be used for the display setting. Passing NULL for the <paramref name="devMode"/> parameter and 0 for the <paramref name="dwFlags"/> parameter is the easiest way to return to the default mode after a dynamic mode change.</para></param>
+		/// <param name="dwFlags"></param>
 		/// <returns></returns>
-		private static DispChange ChangeDisplaySettingsEx(string deviceName, ref ScreenSettingsDevMode devMode, CDS dwFlags)
+		internal static DispChange ChangeDisplaySettingsEx(string deviceName, ref ScreenSettingsDevMode devMode, CDS dwFlags)
 		{
 			return (DispChange)ChangeDisplaySettingsEx(deviceName, ref devMode, IntPtr.Zero, (int)dwFlags, IntPtr.Zero);
 		}
@@ -84,10 +109,16 @@ namespace Trigger.Actions
 				return false;
 		}
 
+		/// <summary>
+		/// <para>Updates the screen's settings and sets it as primary screen</para>
+		/// </summary>
+		/// <param name="screen"></param>
+		/// <returns></returns>
 		public static bool UpdateScreenAndMakePrimary(ScreenEx screen)
 		{
 			ScreenSettingsDevMode devMode = screen.ToDEVMODE();
 			return ChangeDisplaySettingsEx(screen.Name, ref devMode, CDS.RESET | CDS.UPDATEREGISTRY | CDS.SET_PRIMARY) >= 0;
 		}
+		#endregion
 	}
 }

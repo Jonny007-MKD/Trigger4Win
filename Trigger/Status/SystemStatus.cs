@@ -51,7 +51,7 @@ namespace Trigger.Status
 
 		#region OSVersion
 		/// <summary>
-		/// <para>Information about the <see cref="OperationSystem"/> that we are running on</para>
+		/// <para>Information about the <see cref="OperatingSystem"/> that we are running on</para>
 		/// </summary>
 		public static OperatingSystem OperatingSystem
 		{

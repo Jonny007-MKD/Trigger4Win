@@ -5,6 +5,9 @@ using System;
 
 namespace Trigger.Status
 {
+	/// <summary>
+	/// <para>Provides methods to get the status of the system regarding devices</para>
+	/// </summary>
 	public static class Device
 	{
 		/// <summary>
@@ -18,6 +21,10 @@ namespace Trigger.Status
 			}
 		}
 
+		/// <summary>
+		/// <para>Gets the status related to devices</para>
+		/// </summary>
+		/// <returns></returns>
 		public static TreeNode GetStatus()
 		{
 			List<StorageDisk> availableDisks = AvailableDisks;

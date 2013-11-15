@@ -44,6 +44,14 @@ namespace Trigger
 			this.StatusView.Show();
 		}
 
+		/// <summary>
+		/// <para>Check if the app was started as administrator or restart it with those permissions</para>
+		/// <para>This method has to be called during the initialization process because otherwise the app will be restarted when trying to perform an action that requires administrator priviliges</para>
+		/// </summary>
+		/// <returns>
+		/// <para>Whether administrator privileges are possible and requested</para>
+		/// <para>When the user cancels UAC or some other error occurs this will return false.</para>
+		/// </returns>
 		public bool RequireAdministrator()
 		{
 			bool isAdmin = false;
@@ -77,10 +85,17 @@ namespace Trigger
 			return false;
 		}
 
+		/// <summary>
+		/// <para>Close the application</para>
+		/// </summary>
 		new public void Close()
 		{
 			this.Close(true);
 		}
+		/// <summary>
+		/// <para>Ask the user and close the application</para>
+		/// </summary>
+		/// <param name="ask">Whether the user shall be asked first</param>
 		public void Close(bool ask)
 		{
 			if (ask)

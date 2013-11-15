@@ -5,13 +5,22 @@ using System.Text;
 
 namespace Trigger.Classes.Device
 {
+	/// <summary>
+	/// <para>A disk that can store something</para>
+	/// </summary>
 	public class StorageDisk : Device
 	{
 		#region Properties
+		/// <summary>Number of bytes in one KB</summary>
 		internal const uint KB = 1024;
+		/// <summary>Number of bytes in one MB</summary>
 		internal const uint MB = KB * 1024;
+		/// <summary>Number of bytes in one GB</summary>
 		internal const uint GB = MB * 1024;
 
+		/// <summary>
+		/// <para>A list of <see cref="Partition"/>s that are members of this <see cref="StorageDisk"/></para>
+		/// </summary>
 		public List<Partition> Partitions = new List<Partition>();
 
 		/// <summary><para>Gets the name of this disk. This is the Windows identifier, drive letter.</para></summary>
@@ -45,17 +54,31 @@ namespace Trigger.Classes.Device
 		#endregion
 
 		#region Constructors
+		/// <summary>
+		/// <para>Create a new <see cref="StorageDisk"/> from the letter</para>
+		/// </summary>
+		/// <param name="UnitMask"></param>
 		public StorageDisk(int UnitMask) : base("")
 		{
 			char letter = FirstDriveFromMask(UnitMask);
 			this.Id = "";
 		}
+		/// <summary>
+		/// <para>Create a new <see cref="StorageDisk"/> from the corresponding <see cref="ManagementObject"/></para>
+		/// </summary>
+		/// <param name="mo"></param>
 		public StorageDisk(ManagementObject mo) : base(mo["DeviceID"].ToString())
 		{
 			this.Model = mo["Model"].ToString();
 			this.Name = mo["Name"].ToString();
 			this.Size = Convert.ToUInt64(mo["Size"]);
 		}
+		/// <summary>
+		/// <para>Create a new <see cref="StorageDisk"/> with the specified <paramref name="Id"/>, <paramref name="Model"/> and <paramref name="Name"/></para>
+		/// </summary>
+		/// <param name="Id"></param>
+		/// <param name="Model"></param>
+		/// <param name="Name"></param>
 		public StorageDisk(string Id, string Model, string Name) : base(Id)
 		{
 			this.Model = Model;
@@ -109,9 +132,13 @@ namespace Trigger.Classes.Device
 			return this.Type == that.Type && this.Name == that.Name;
 		}
 
+		/// <summary>
+		/// <para>Get a unique hashcode of this object</para>
+		/// </summary>
+		/// <returns></returns>
 		public override int GetHashCode()
 		{
-			return this.DriveLetters.GetHashCode() + this.Type.GetHashCode() + this.Name.GetHashCode();
+			return this.DriveLetters.GetHashCode() ^ this.Type.GetHashCode() ^ this.Name.GetHashCode();
 		}
 		#endregion
 

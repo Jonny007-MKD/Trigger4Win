@@ -2,6 +2,9 @@
 
 namespace Trigger.Classes.Device
 {
+	/// <summary>
+	/// <para>A device. This is very abstract</para>
+	/// </summary>
 	public class Device
 	{
 		#region Enums
@@ -22,6 +25,7 @@ namespace Trigger.Classes.Device
 			USB,
 			/// <summary><para>This can be any disk</para></summary>
 			Any,
+			/// <summary><para>This is a screen</para></summary>
 			Screen,
 		}
 		#endregion
@@ -70,7 +74,45 @@ namespace Trigger.Classes.Device
 		}
 		#endregion
 
-		#region Methods
+		#region Operators
+		/// <summary>
+		/// <para>Gets a unique code of this <see cref="Device"/></para>
+		/// </summary>
+		/// <returns></returns>
+		public override int GetHashCode()
+		{
+			return this.Id.GetHashCode();
+		}
+
+		/// <summary></summary>
+		/// <param name="A"></param>
+		/// <param name="B"></param>
+		/// <returns></returns>
+		public static bool operator ==(Device A, Device B)
+		{
+			return A.Id == B.Id;
+		}
+		/// <summary></summary>
+		/// <param name="A"></param>
+		/// <param name="B"></param>
+		/// <returns></returns>
+		public static bool operator !=(Device A, Device B)
+		{
+			return A.Id != B.Id;
+		}
+
+		/// <summary>
+		/// <para>Compares to <see cref="Device"/>s (only the IDs)</para>
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
+		public override bool Equals(object obj)
+		{
+			Device that = obj as Device;
+			if (that == null)
+				return false;
+			return this.Id == that.Id;
+		}
 		#endregion
 	}
 }

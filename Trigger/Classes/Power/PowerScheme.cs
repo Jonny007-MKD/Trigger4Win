@@ -7,6 +7,9 @@ using System.Collections.Generic;
 
 namespace Trigger.Classes.Power
 {
+	/// <summary>
+	/// <para>A Windows PowerScheme</para>
+	/// </summary>
 	public class PowerScheme
 	{
 		#region DllImport
@@ -153,6 +156,9 @@ namespace Trigger.Classes.Power
 		internal const uint ACCESS_SUBGROUP = 17;
 		internal const uint ACCESS_INDIVIDUAL_SETTING = 18;
 
+		/// <summary>
+		/// <para>Gets the currently active <see cref="PowerScheme"/></para>
+		/// </summary>
 		public static PowerScheme Active
 		{
 			get
@@ -165,6 +171,9 @@ namespace Trigger.Classes.Power
 				return new PowerScheme(activeGuidPtr);
 			}
 		}
+		/// <summary>
+		/// <para>Gets a list with all available <see cref="PowerScheme"/>s</para>
+		/// </summary>
 		public static List<PowerScheme> AllPowerSchemes
 		{
 			get
@@ -196,9 +205,13 @@ namespace Trigger.Classes.Power
 		}
 		#endregion
 		#region Other Settings
-		/// <summary><para>Contains all the additional settings of this <see cref="PowerScheme"/></para></summary>
+		/// <summary>
+		/// <para>Contains all the additional settings of this <see cref="PowerScheme"/></para>
+		/// <para>There may be more interesting stuff then it is mapped with outside with other properties</para>
+		/// </summary>
 		internal Dictionary<Guid, ulong> settings = new Dictionary<Guid, ulong>(80);
 
+		/// <summary></summary>
 		public bool Adaptive
 		{
 			get
@@ -206,6 +219,7 @@ namespace Trigger.Classes.Power
 				return Convert.ToBoolean(settings[GUID_SET_ADAPTIVE]);
 			}
 		}
+		/// <summary>Whether the brightness is being adjusted adaptively</summary>
 		public bool AdaptiveBrightness
 		{
 			get
@@ -213,20 +227,23 @@ namespace Trigger.Classes.Power
 				return Convert.ToBoolean(settings[GUID_SET_ADAPTIVE_BRIGHTNESS]);
 			}
 		}
-		public ulong DimScreenTimeout
+		/// <summary>Time until the screen is being dimmed</summary>
+		public TimeSpan DimScreenTimeout
 		{
 			get
 			{
-				return Convert.ToUInt32(settings[GUID_SET_DIM_SCREEN_TIMEOUT]);
+				return new TimeSpan(0, 0, Convert.ToInt32(settings[GUID_SET_DIM_SCREEN_TIMEOUT]));
 			}
 		}
-		public ulong DiskDriveTimeout
+		/// <summary>Time until a disk drive will be shut down</summary>
+		public TimeSpan DiskDriveTimeout
 		{
 			get
 			{
-				return Convert.ToUInt32(settings[GUID_SET_DRIVE_TIMEOUT]);
+				return new TimeSpan(0, 0, Convert.ToInt32(settings[GUID_SET_DRIVE_TIMEOUT]));
 			}
 		}
+		/// <summary>The brightness of the screen in percent</summary>
 		public byte ScreenBrightness
 		{
 			get
@@ -234,6 +251,7 @@ namespace Trigger.Classes.Power
 				return Convert.ToByte(settings[GUID_SET_SCREEN_BRIGHTNESS]);
 			}
 		}
+		/// <summary>The brightness of the screen when it is dimmed in percent</summary>
 		public byte ScreenBrightnessDim
 		{
 			get
@@ -241,6 +259,15 @@ namespace Trigger.Classes.Power
 				return Convert.ToByte(settings[GUID_SET_SCREEN_BRIGHTNESS_DIM]);
 			}
 		}
+		/// <summary>Time until the screen is switched off</summary>
+		public TimeSpan SwitchoffScreenTimeout
+		{
+			get
+			{
+				return new TimeSpan(Convert.ToInt32(settings[GUID_SET_SWITCHOFF_SCREEN_TIMEOUT]));
+			}
+		}
+		/// <summary>Whether selective usb energy saving is enabled</summary>
 		public bool SelectiveUsbEnergySaving
 		{
 			get
@@ -248,18 +275,12 @@ namespace Trigger.Classes.Power
 				return Convert.ToBoolean(settings[GUID_SET_SELECTIVE_USB_ENERGY_SAVING]);
 			}
 		}
-		public ulong SwitchoffScreenTimeout
+		/// <summary>Time until the screen is locked (I think)</summary>
+		public TimeSpan UserAnnoyanceTimeout
 		{
 			get
 			{
-				return Convert.ToUInt32(settings[GUID_SET_SWITCHOFF_SCREEN_TIMEOUT]);
-			}
-		}
-		public ulong UserAnnoyanceTimeout
-		{
-			get
-			{
-				return Convert.ToUInt32(settings[GUID_SET_USER_ANNOYANCE_TIMEOUT]);
+				return new TimeSpan(Convert.ToInt32(settings[GUID_SET_USER_ANNOYANCE_TIMEOUT]));
 			}
 		}
 		#endregion
@@ -268,9 +289,9 @@ namespace Trigger.Classes.Power
 
 		#region Constructor
 		/// <summary>
-		/// <para>Creates a new instance of <see cref="PowerScheme"/> with the specified <paramref name="index"/></para>
+		/// <para>Creates a new instance of <see cref="PowerScheme"/> with the <see cref="Guid"/> of the specified <paramref name="GuidPtr"/></para>
 		/// </summary>
-		/// <param name="Guid"></param>
+		/// <param name="GuidPtr"></param>
 		public PowerScheme(IntPtr GuidPtr)
 		{
 			if (GuidPtr == IntPtr.Zero)
@@ -394,15 +415,27 @@ namespace Trigger.Classes.Power
 			return this.Guid == that.Guid;
 		}
 
+		/// <summary></summary>
+		/// <param name="thit"></param>
+		/// <param name="that"></param>
+		/// <returns></returns>
 		public static bool operator == (PowerScheme thit, PowerScheme that)
 		{
 			return thit.Guid == that.Guid;
 		}
+		/// <summary></summary>
+		/// <param name="thit"></param>
+		/// <param name="that"></param>
+		/// <returns></returns>
 		public static bool operator !=(PowerScheme thit, PowerScheme that)
 		{
 			return thit.Guid != that.Guid;
 		}
 
+		/// <summary>
+		/// <para>A unique code of this <see cref="PowerScheme"/></para>
+		/// </summary>
+		/// <returns></returns>
 		public override int GetHashCode()
 		{
 			return this.Guid.GetHashCode();

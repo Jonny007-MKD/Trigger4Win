@@ -8,6 +8,10 @@ using Trigger.Classes.Device;
 
 namespace Trigger.Events
 {
+	/// <summary>
+	/// <para>A <see cref="EventPlugin"/> that provides events for Devices</para>
+	/// <para>It catches arriving and removed devices as well as inserted media and new network volumes</para>
+	/// </summary>
 	public class Device : EventPlugin
 	{
 		#region Constants, Structs & Enums
@@ -181,7 +185,7 @@ namespace Trigger.Events
 		/// <summary>
 		/// <para>Creates an instance of this class</para>
 		/// </summary>
-		/// <param name="Main"></param>
+		/// <param name="main"></param>
 		public Device(Main main)
 		{
 			Main = main;
@@ -202,6 +206,10 @@ namespace Trigger.Events
 		#endregion
 
 		#region Methods
+		/// <summary>
+		/// <para>Get all events that are provided</para>
+		/// </summary>
+		/// <returns></returns>
 		public override EventList EventNames()
 		{
 			EventList list = new EventList();
@@ -211,6 +219,10 @@ namespace Trigger.Events
 			return list;
 		}
 
+		/// <summary>
+		/// <para>Get the current status of this <see cref="EventPlugin"/></para>
+		/// </summary>
+		/// <returns></returns>
 		public override TreeNode GetStatus()
 		{
 			TreeNode tnMain = new TreeNode("Device");

@@ -11,6 +11,10 @@ using Trigger.Classes.System;
 
 namespace Trigger.Events
 {
+	/// <summary>
+	/// <para>A <see cref="EventPlugin"/> that provides events for Power stuff</para>
+	/// <para>It catches changes in the PowerMode (Battery Status, Battery Availability, PowerLine Status), Suspend and Resumes and a change of the active <see cref="PowerScheme"/></para>
+	/// </summary>
 	public class Power : EventPlugin
 	{
 		#region Dll Imports
@@ -223,7 +227,7 @@ namespace Trigger.Events
 		/// <summary>
 		/// <para>Creates an instance of this class</para>
 		/// </summary>
-		/// <param name="Main"></param>
+		/// <param name="main"></param>
 		public Power(Main main)
 		{
 			Main = main;
@@ -246,6 +250,9 @@ namespace Trigger.Events
 		#endregion
 
 		#region Methods
+		/// <summary>
+		/// </summary>
+		/// <returns></returns>
 		public override EventList EventNames()
 		{
 			EventList list = new EventList();
@@ -274,6 +281,9 @@ namespace Trigger.Events
 			return list;
 		}
 
+		/// <summary>
+		/// </summary>
+		/// <returns></returns>
 		public override TreeNode GetStatus()
 		{
 			TreeNode tnMain = new TreeNode("Power");
