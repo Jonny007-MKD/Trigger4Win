@@ -210,14 +210,17 @@
     <None Include="Resources\Edit_16x16.png" />
     <None Include="Resources\RedCross_22x22.png" />
     <None Include="Resources\RedCross_16x16.png" />
-    <None Include="Resources\icon-300.png" />
-    <None Include="Resources\icon-64.png" />
-    <None Include="Resources\icon-32.png" />
-    <None Include="Resources\icon-22.png" />
-    <None Include="Resources\icon-16.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon-all.ico" />
+    <None Include="Resources\icon-16.png" />
+    <None Include="Resources\Statistics_24x24.png" />
+    <None Include="Resources\Quit_24x24.png" />
+    <None Include="Resources\puzzle_16x16.png" />
+    <None Include="Resources\icon_32x32.png" />
+    <None Include="Resources\icon_22x22.png" />
+    <None Include="Resources\icon_16x16.png" />
+    <None Include="Resources\Brush_16x16.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libcmdline\CommandLine.csproj">

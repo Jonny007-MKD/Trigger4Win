@@ -76,9 +76,21 @@ namespace Trigger
 			}
 			return false;
 		}
+
+		new public void Close()
+		{
+			this.Close(true);
+		}
+		public void Close(bool ask)
+		{
+			if (ask)
+				if (DialogResult.Yes != MessageBox.Show("Do you really want to exit Trigger4Win?", "Quit Trigger4Win", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+					return;
+			base.Close();
+		}
 		#endregion
 
-		#region Events
+		#region Event handler
 		/// <summary>
 		/// <para>Do not show this <see cref="Form"/></para>
 		/// </summary>
