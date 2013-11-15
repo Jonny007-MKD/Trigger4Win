@@ -77,6 +77,7 @@
 			this.tsb_Stats.Click += new System.EventHandler(this.tsb_Stats_Click);
 			// 
 			// tsb_Options
+			// this.tsb_Options.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.tsb_Options_EnableLoggingTasks });
 			// 
 			this.tsb_Options.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
 			this.tsb_Options.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -86,6 +87,7 @@
 			this.tsb_Options.Name = "tsb_Options";
 			this.tsb_Options.Size = new System.Drawing.Size(29, 22);
 			this.tsb_Options.Text = "Options";
+			this.tsb_Options.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.tsb_Options_EnableLoggingTasks });
 			// 
 			// tsb_Options_EnableLoggingTasks
 			// 
@@ -108,12 +110,15 @@
 			this.tsb_Exit.Click += new System.EventHandler(this.tsb_Exit_Click);
 			// 
 			// toolStrip1
+			// this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.tsb_Clear, this.tsb_Stats, this.tsb_Options, this.tsb_Exit });
 			// 
 			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip1.Name = "toolStrip1";
 			this.toolStrip1.Size = new System.Drawing.Size(548, 25);
 			this.toolStrip1.TabIndex = 1;
 			this.toolStrip1.Text = "toolStrip1";
+			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.tsb_Clear,this.tsb_Stats,this.tsb_Options,this.tsb_Exit});
+
 			// 
 			// Log
 			// 
@@ -142,9 +147,6 @@
 		private System.Windows.Forms.ToolStripMenuItem tsb_Options_EnableLoggingTasks;
 		private System.Windows.Forms.ToolStripButton tsb_Exit;
 		private System.Windows.Forms.ToolStrip toolStrip1;
-		private System.Windows.Forms.ToolStripMenuItem hiToolStripMenuItem;
-
-
 	}
 }
 

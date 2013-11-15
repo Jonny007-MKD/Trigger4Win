@@ -144,6 +144,8 @@
     <Compile Include="Tasks\Plugins\LogPowerEvents.cs" />
     <Compile Include="Tasks\Plugins\LogProcessesEvents.cs" />
     <Compile Include="Tasks\Plugins\LogScreenEvents.cs" />
+    <Compile Include="Tasks\Plugins\OnHibernate.cs" />
+    <Compile Include="Tasks\Plugins\ProxyHska.cs" />
     <Compile Include="Tasks\TaskPlugin.cs" />
     <Compile Include="Tasks\Plugins\LogSystemEvents.cs" />
     <Compile Include="Tasks\Plugins\LogNetworkEvents.cs" />
