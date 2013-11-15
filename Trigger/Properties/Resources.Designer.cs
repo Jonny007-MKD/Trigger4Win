@@ -60,6 +60,13 @@ namespace Trigger.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Brush_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("Brush_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Chart_16x16 {
             get {
                 object obj = ResourceManager.GetObject("Chart_16x16", resourceCulture);
@@ -81,37 +88,37 @@ namespace Trigger.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap icon_16 {
+        internal static System.Drawing.Bitmap icon_16x16 {
             get {
-                object obj = ResourceManager.GetObject("icon-16", resourceCulture);
+                object obj = ResourceManager.GetObject("icon_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap icon_22 {
+        internal static System.Drawing.Bitmap icon_22x22 {
             get {
-                object obj = ResourceManager.GetObject("icon-22", resourceCulture);
+                object obj = ResourceManager.GetObject("icon_22x22", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap icon_300 {
+        internal static System.Drawing.Bitmap icon_32x32 {
             get {
-                object obj = ResourceManager.GetObject("icon-300", resourceCulture);
+                object obj = ResourceManager.GetObject("icon_32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap icon_32 {
+        internal static System.Drawing.Bitmap puzzle_16x16 {
             get {
-                object obj = ResourceManager.GetObject("icon-32", resourceCulture);
+                object obj = ResourceManager.GetObject("puzzle_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap icon_64 {
+        internal static System.Drawing.Bitmap Quit_24x24 {
             get {
-                object obj = ResourceManager.GetObject("icon-64", resourceCulture);
+                object obj = ResourceManager.GetObject("Quit_24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -140,6 +147,13 @@ namespace Trigger.Properties {
         internal static System.Drawing.Bitmap Settings_24x24 {
             get {
                 object obj = ResourceManager.GetObject("Settings_24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Statistics_24x24 {
+            get {
+                object obj = ResourceManager.GetObject("Statistics_24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
