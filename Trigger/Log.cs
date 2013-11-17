@@ -267,6 +267,16 @@ namespace Trigger
 					break;
 			}
 		}
+		
+		/// <summary>
+		/// <para>Opens the <see cref="TaskOptions"/></para>
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void manageTasksToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			new TaskOptions(this.Main).Show();
+		}
 		#endregion
 	}
 }
