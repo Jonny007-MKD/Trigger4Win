@@ -19,10 +19,31 @@ namespace Trigger
 		/// Der Haupteinstiegspunkt für die Anwendung.
 		/// </summary>
 		[STAThread]
-		static void Main()
+		static void Main(string[] args)
 		{
 			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);  
+			Application.SetCompatibleTextRenderingDefault(false);
+			/*MessageBox.Show(String.Join<string>("  |  ", args));
+			if (args.Length == 2 && args[0] == "--c9c006cb3f9b8b111f4d2c8ab5ef7aa5")		// we trying to elevate rights and have to kill the previous instance first
+			{
+				try
+				{
+					MessageBox.Show("Try");
+					Process me = Process.GetProcessById(Convert.ToInt32(args[1]));
+					MessageBox.Show("me = " + Process.GetCurrentProcess().ProcessName + " " + Process.GetCurrentProcess().Id);
+					MessageBox.Show("not me = " + me.ProcessName + " " + me.Id);
+					if (me.ProcessName == Process.GetCurrentProcess().ProcessName)
+					{
+						me.Kill();
+						me.WaitForExit();
+					}
+				}
+				catch(Exception e)
+				{
+					MessageBox.Show(e.Message + "\n\n" + e.StackTrace);
+				}
+			}*/
+
 			SingleInstanceApplication.Run(new Main(), NewInstanceHandler);
 		}
 

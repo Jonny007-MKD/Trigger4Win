@@ -63,8 +63,7 @@ namespace Trigger
 				return true;
 			
 			Process me = Process.GetCurrentProcess();
-			ProcessStartInfo procStart = new ProcessStartInfo();
-			procStart.FileName = me.MainModule.FileName;
+			ProcessStartInfo procStart = new ProcessStartInfo(me.MainModule.FileName, "--c9c006cb3f9b8b111f4d2c8ab5ef7aa5 " + me.Id.ToString());
 			procStart.UseShellExecute = true;
 			procStart.Verb = "runas";	// run as Admin
 
