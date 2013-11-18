@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Trigger.Classes.WMI;
 
 namespace Trigger.Status
 {
@@ -19,9 +20,28 @@ namespace Trigger.Status
 		#endregion
 
 		/// <summary>
+		/// <para>Returns a list with all available <see cref="NetworkInterface"/>s</para>
 		/// <para><see cref="NetworkInterface.GetAllNetworkInterfaces"/></para>
 		/// </summary>
-		public static List<NetworkInterface> AllNetworkInterfaces { get { return new List<NetworkInterface>(NetworkInterface.GetAllNetworkInterfaces()); } }
+		public static List<NetworkInterface> AllNetworkInterfaces 
+		{
+			get 
+			{
+				return new List<NetworkInterface>(NetworkInterface.GetAllNetworkInterfaces()); 
+			}
+		}
+
+		/// <summary>
+		/// <para>Returns a list with all available <see cref="NetworkAdapter"/>s</para>
+		/// </summary>
+		public static List<NetworkAdapter> AllNetworkAdapters
+		{
+			get
+			{
+				NetworkAdapter.NetworkAdapterCollection cAdapters = NetworkAdapter.GetInstances();
+				return new List<NetworkAdapter>(cAdapters);
+			}
+		}
 
 		/// <summary>
 		/// <para><see cref="NetworkInterface.GetIsNetworkAvailable"/></para>
