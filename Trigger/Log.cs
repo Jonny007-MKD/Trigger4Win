@@ -24,6 +24,8 @@ namespace Trigger
 			ProcessesEvent,
 			/// <summary><para>This is a device event</para></summary>
 			DeviceEvent,
+			/// <summary><para>This is a command line event</para></summary>
+			CommandLineEvent,
 			/// <summary><para>This is an action</para></summary>
 			Action,
 			/// <summary><para>This is an message without type</para></summary>

@@ -140,6 +140,7 @@
     <Compile Include="Status\ScreenStatus.cs" />
     <Compile Include="Status\NetworkStatus.cs" />
     <Compile Include="Status\SystemStatus.cs" />
+    <Compile Include="Tasks\Plugins\LogCommandLineEvents.cs" />
     <Compile Include="Tasks\Plugins\LogDeviceEvents.cs" />
     <Compile Include="Tasks\Plugins\LogPowerEvents.cs" />
     <Compile Include="Tasks\Plugins\LogProcessesEvents.cs" />

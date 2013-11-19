@@ -106,5 +106,17 @@ namespace Trigger.Properties {
                 this["LogDeviceEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LogCommandLineEnabled {
+            get {
+                return ((bool)(this["LogCommandLineEnabled"]));
+            }
+            set {
+                this["LogCommandLineEnabled"] = value;
+            }
+        }
     }
 }
