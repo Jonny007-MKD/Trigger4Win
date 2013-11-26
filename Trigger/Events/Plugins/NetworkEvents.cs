@@ -203,6 +203,8 @@ namespace Trigger.Events
 
 		private void handleIpAddresses(NetworkInterface oldNI, NetworkInterface newNI)
 		{
+			if (this.OnIpAddressChanged == null)
+				return;
 			UnicastIPAddressInformationCollection ipsOld = oldNI.GetIPProperties().UnicastAddresses;
 			UnicastIPAddressInformationCollection ipsNew = newNI.GetIPProperties().UnicastAddresses;
 			List<UnicastIPAddressInformation> ipsNewList = new List<UnicastIPAddressInformation>(ipsNew);
