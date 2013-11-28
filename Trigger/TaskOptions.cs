@@ -1,18 +1,16 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.Xml.Serialization;
 using System.Windows.Forms;
+using System.IO;
+using System.Text;
 
 namespace Trigger
 {
 	public partial class TaskOptions : Form
 	{
 		#region Properties
-		internal ListDictionary plugins = new ListDictionary();
+		internal ObservableDictionary<string, bool> plugins = new ObservableDictionary<string, bool>();
 		#endregion
 
 		#region Constructor
@@ -24,17 +22,25 @@ namespace Trigger
 		{
 			InitializeComponent();
 
+			ObservableDictionary<string, bool> settings;
+			if (String.IsNullOrEmpty(Properties.Settings.Default.PluginsEnabled))
+				settings = new ObservableDictionary<string,bool>();
+			else
+			{
+				XmlSerializer xmlSer = new XmlSerializer(typeof(ObservableDictionary<string, bool>));
+				settings = (ObservableDictionary<string, bool>)xmlSer.Deserialize(new StringReader(Properties.Settings.Default.PluginsEnabled));
+			}
+
+
 			foreach (Type task in Main.TaskMgr.TaskPluginsAvailable)
 			{
 				string name = task.Name;
 				bool enabled = true;
-				if (Properties.Settings.Default.PluginsEnabled != null && Properties.Settings.Default.PluginsEnabled.Contains(name))
-					enabled = Convert.ToBoolean(Properties.Settings.Default.PluginsEnabled[name]);
+				if (settings.ContainsKey(name))
+					enabled = settings[name];
 				plugins.Add(name, enabled);
 			}
 
-			Properties.Settings.Default.PluginsEnabled = plugins;
-			Properties.Settings.Default.Save();
 
 			BindingSource pluginBinding = new BindingSource();
 			pluginBinding.DataSource = plugins;
@@ -48,9 +54,21 @@ namespace Trigger
 		{
 			if (e.ColumnIndex != 1 || e.RowIndex < 0)
 				return;
-			DataGridView dgv = (DataGridView)sender;
-			DataGridViewCell cellEnabled = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
-			cellEnabled.Value = !Convert.ToBoolean(cellEnabled.Value);
+			plugins["OnHibernate"] = true;
+		}
+
+		private void TaskOptions_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			StringBuilder str = new StringBuilder();
+			XmlSerializer xmlSer = new XmlSerializer(typeof(ObservableDictionary<string, bool>));
+			xmlSer.Serialize(new StringWriter(str), plugins);
+			Properties.Settings.Default.PluginsEnabled = str.ToString();
+			Properties.Settings.Default.Save();
+		}
+
+		private void msg(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			MessageBox.Show(e.ToString());
 		}
 		#endregion
 	}

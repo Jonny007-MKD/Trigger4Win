@@ -13,7 +13,7 @@ namespace Trigger.Tasks
 		private Main Main;
 
 		private List<TaskPlugin> TaskPluginInstances = new List<TaskPlugin>();
-		private List<Type> TaskPluginsAvailable;
+		public List<Type> TaskPluginsAvailable;
 		#endregion
 
 		#region Constructors

@@ -83,6 +83,7 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "TaskOptions";
 			this.Text = "Manage your plugins";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TaskOptions_FormClosing);
 			((System.ComponentModel.ISupportInitialize)(this.dgvPlugins)).EndInit();
 			this.ResumeLayout(false);
 

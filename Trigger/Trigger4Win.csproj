@@ -89,42 +89,11 @@
     <Compile Include="Classes\Device\Partition.cs" />
     <Compile Include="Classes\Device\StorageDisk.cs" />
     <Compile Include="Classes\Device\UsbDisk.cs" />
-    <Compile Include="Classes\Extensions\IPAddress.cs" />
-    <Compile Include="Classes\Extensions\Array.cs" />
-    <Compile Include="Classes\Extensions\NetworkInterface.cs" />
     <Compile Include="Classes\Power\PowerScheme.cs" />
     <Compile Include="Classes\Screen\ScreenSettingsDevMode.cs" />
     <Compile Include="Classes\Screen\ScreenEx.cs" />
     <Compile Include="Classes\System\BroadcastStructs.cs" />
     <Compile Include="Classes\System\WindowsMessage.cs" />
-    <Compile Include="Classes\WMI\CIM_MediaPreset.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Classes\WMI\WbemErrorEnum.cs" />
-    <Compile Include="Classes\WMI\Win32_DiskDrive.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Classes\WMI\Win32_DiskDriveToPartition.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Classes\WMI\Win32_DiskPartition.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Classes\WMI\Win32_LogicalDisk.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Classes\WMI\Win32_LogicalDiskToPartition.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Classes\WMI\Win32_NetworkAdapter.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Classes\WMI\Win32_NetworkAdapterConfiguration.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Classes\WMI\Win32_Win32_CdRomDrive.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Events\EventList.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -139,6 +108,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Events\Plugins\NetworkEvents.cs" />
+    <Compile Include="Extensions\ObservableDictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Log.cs">
       <SubType>Form</SubType>
     </Compile>

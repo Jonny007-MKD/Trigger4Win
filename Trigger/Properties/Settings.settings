@@ -23,7 +23,7 @@
     <Setting Name="LogDeviceEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="PluginsEnabled" Type="System.Collections.Specialized.ListDictionary" Scope="User">
+    <Setting Name="PluginsEnabled" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>
