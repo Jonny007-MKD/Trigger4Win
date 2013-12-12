@@ -10,6 +10,7 @@ namespace Trigger
 	public partial class TaskOptions : Form
 	{
 		#region Properties
+		BindingSource pluginBinding;
 		internal ObservableDictionary<string, bool> plugins = new ObservableDictionary<string, bool>();
 		#endregion
 
@@ -42,7 +43,7 @@ namespace Trigger
 			}
 
 
-			BindingSource pluginBinding = new BindingSource();
+			pluginBinding = new BindingSource();
 			pluginBinding.DataSource = plugins;
 			this.dgvPlugins.DataSource = pluginBinding;
 		}
