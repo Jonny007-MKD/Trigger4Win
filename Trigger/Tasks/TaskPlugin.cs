@@ -29,7 +29,7 @@ namespace Trigger.Tasks
 		/// <para>It may give some status information or only the name</para>
 		/// </summary>
 		/// <returns></returns>
-		public virtual TreeNode GetStatus()
+		public virtual TreeNode GetStatus(TreeView tv)
 		{
 			return new TreeNode(this.GetType().Name);
 		}

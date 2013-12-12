@@ -45,7 +45,7 @@ namespace Trigger.Tasks
 		/// <para>This includes the lists with available and with loaded <see cref="TaskPlugin"/>s</para>
 		/// </summary>
 		/// <returns></returns>
-		public TreeNode GetStatus()
+		public TreeNode GetStatus(TreeView tv)
 		{
 			TreeNode tnMain = new TreeNode("Task Manager");
 
@@ -53,7 +53,7 @@ namespace Trigger.Tasks
 			this.TaskPluginsAvailable.ForEach(new Action<Type>((item) => tnAvailable.Nodes.Add(new TreeNode(item.Name))));
 
 			TreeNode tnLoaded = tnMain.Nodes.Add("Loaded Tasks (" + this.TaskPluginInstances.Count + ")");
-			this.TaskPluginInstances.ForEach(new Action<TaskPlugin>((tp) => tnLoaded.Nodes.Add(tp.GetStatus())));
+			this.TaskPluginInstances.ForEach(new Action<TaskPlugin>((tp) => tnLoaded.Nodes.Add(tp.GetStatus(tv))));
 
 			return tnMain;
 		}
