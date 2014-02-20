@@ -69,6 +69,54 @@ namespace Trigger.Actions
 			/// <remarks>If the EWX_FORCEIFHUNG value is specified, the system forces hung applications to close and does not display the dialog box.</remarks>
 			FORCEIFHUNG = 0x10,
 		}
+
+		[Flags]
+		private enum ExecutionState : uint
+		{
+			/// <summary>
+			/// <para>Informs the system that the state being set should remain in effect until the next call that uses ES_CONTINUOUS and one of the other state flags is cleared.</para>
+			/// </summary>
+			Continuous =			0x80000000,
+			/// <summary>
+			/// <para>The opposite of Continuous, used for masking</para>
+			/// </summary>
+			NotContinuous =			0x7FFFFFFF,
+			/// <summary>
+			/// <para>Enables away mode. This value must be specified with ES_CONTINUOUS.</para>
+			/// <para>Away mode should be used only by media-recording and media-distribution applications that must perform critical background processing on desktop computers while the computer appears to be sleeping.</para>
+			/// </summary>
+			AwayMode_Required =		0x00000040,
+			/// <summary>
+			/// <para>The opposite of AwayMode_Required, used for masking</para>
+			/// </summary>
+			AwayMode_NotRequired =	0xFFFFFFBF,
+			/// <summary>
+			/// <para>This value is not supported!</para>
+			/// </summary>
+			/// <remarks>Windows Server 2003 and Windows XP: Informs the system that a user is present and resets the display and system idle timers. UserPresent must be called with Continuous.</remarks>
+			UserPresent =			0x00000004,
+			/// <summary>
+			/// <para>Forces the display to be on by resetting the display idle timer.</para>
+			/// </summary>
+			/// <remarks><para>Windows 8: This flag can only keep a display turned on, it can't turn on a display that's currently off.</para></remarks>
+			Display_Required =		0x00000002,
+			/// <summary>
+			/// <para>The opposite of Display_Required, used for masking</para>
+			/// </summary>
+			Display_NotRequired =	0xFFFFFFFD,
+			/// <summary>
+			/// <para>Forces the system to be in the working state by resetting the system idle timer.</para>
+			/// </summary>
+			System_Required =		0x00000001,
+			/// <summary>
+			/// <para>The opposite of System_Required, used for masking</para>
+			/// </summary>
+			System_NotRequired =	0xFFFFFFFE,
+			/// <summary>
+			/// <para>No state at all</para>
+			/// </summary>
+			None =					0x00000000,
+		}	
 		#endregion
 
 		#region Dll Imports
@@ -125,6 +173,19 @@ namespace Trigger.Actions
 		/// <returns>If the function succeeds, the return value is a handle to the window that has the specified class name and window name.</returns>
 		[DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true, ExactSpelling = true)]
 		public static extern IntPtr FindWindowW(string lpClassName, string lpWindowName);
+
+		/// <summary>
+		/// <para>Enables an application to inform the system that it is in use, thereby preventing the system from entering sleep or turning off the display while the application is running.</para>
+		/// </summary>
+		/// <param name="es"></param>
+		/// <returns>If the function succeeds, the return value is the previous thread execution state, otherwise NULL</returns>
+		/// <remarks>The system automatically detects activities such as local keyboard or mouse input, server activity, and changing window focus. Activities that are not automatically detected include disk or CPU activity and video display.</para>
+		/// <para>Calling <see cref="SetThreadExecutionState"/> without Continues simply resets the idle timer; to keep the display or system in the working state, the thread must call <see cref="SetThreadExecutionState"/> periodically.</para>
+		/// <para></para>To run properly on a power-managed computer, applications such as fax servers, answering machines, backup agents, and network management applications must use both System_Required and Continuous when they process events. Multimedia applications, such as video players and presentation applications, must use Display_Required when they display video for long periods of time without user input. Applications such as word processors, spreadsheets, browsers, and games do not need to call <see cref="SetThreadExecutionState"/>.</para>
+		/// <para>The AwayMode_Required value should be used only when absolutely necessary by media applications that require the system to perform background tasks such as recording television content or streaming media to other devices while the system appears to be sleeping. Applications that do not require critical background processing or that run on portable computers should not enable away mode because it prevents the system from conserving power by entering true sleep.</para>
+		/// </remarks>
+		[DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true, ExactSpelling = true)]
+		internal static extern ExecutionState SetThreadExecutionState(ExecutionState es);
 		#endregion
 
 		#region Methods
@@ -281,6 +342,100 @@ namespace Trigger.Actions
 		{
 			getShutdownPrivilege();
 			return ExitWindowsEx((uint)EWX.LOGOFF, 0);
+		}
+		#endregion
+
+		#region User Inactivity: ExecutionState
+		/// <summary>
+		/// <para>This allows the system to power down the display according to the power plan.</para>
+		/// </summary>
+		public void DisplayPowerdownAllow()
+		{
+			ExecutionState prev = SetThreadExecutionState(ExecutionState.Continuous);		// Reset all ExecutionStates
+
+			if ((prev & ExecutionState.NotContinuous & ExecutionState.Display_NotRequired) != ExecutionState.None)		// If previous ExecutionState was not only Display_Required
+				SetThreadExecutionState(prev & ExecutionState.Display_NotRequired | ExecutionState.Continuous);			// preserve that state
+		}
+
+		/// <summary>
+		/// <para>This prevents the system from powering down the display. It will be kept on until <see cref="DisplayPowerdownAllow"/> is called, then the user inactivity timer starts according to the power plan.</para>
+		/// </summary>
+		public void DisplayPowerdownPrevent()
+		{
+			ExecutionState prev = SetThreadExecutionState(ExecutionState.Display_Required | ExecutionState.Continuous);		// Set display required
+
+			if ((prev & ExecutionState.NotContinuous & ExecutionState.Display_NotRequired) != ExecutionState.None)		// If previous ExecutionState contained other states
+				SetThreadExecutionState(prev | ExecutionState.Display_Required | ExecutionState.Continuous);			// preserve that state and add display state
+		}
+
+		/// <summary>
+		/// <para>This resets the timer that will power down the display after a certain amount of user inactivity.</para>
+		/// </summary>
+		public void DisplayPowerdownResetTimer()
+		{
+			SetThreadExecutionState(ExecutionState.Display_Required);
+		}
+
+		/// <summary>
+		/// <para>This prevents the system from going to sleep mode, even if the user tells it to. Instead the system will only appear to be sleeping and perform task in the background (such as video recording or heavy calculation operations)</para>
+		/// </summary>
+		public bool SleepPrevent()
+		{
+			ExecutionState prev = SetThreadExecutionState(ExecutionState.AwayMode_Required | ExecutionState.Continuous);
+
+			if (prev == ExecutionState.None)
+				return false;
+
+			if ((prev & ExecutionState.NotContinuous & ExecutionState.AwayMode_NotRequired) != ExecutionState.None)		// If previous ExecutionState contained other states
+				prev = SetThreadExecutionState(prev | ExecutionState.AwayMode_Required | ExecutionState.Continuous);			// preserve that state and add awaymode state
+
+			return prev != ExecutionState.None;
+		}
+
+		/// <summary>
+		/// <para>This allows the system to go to sleep when the user or the power plan wishes to (see <see cref="SleepPrevent"/></para>
+		/// </summary>
+		public bool SleepAllow()
+		{
+			ExecutionState prev = SetThreadExecutionState(ExecutionState.Continuous);		// Reset all ExecutionStates
+
+			if (prev == ExecutionState.None)
+				return false;
+
+			if ((prev & ExecutionState.NotContinuous & ExecutionState.AwayMode_NotRequired) != ExecutionState.None)		// If previous ExecutionState was not only AwayMode_Required
+				prev = SetThreadExecutionState(prev & ExecutionState.AwayMode_NotRequired | ExecutionState.Continuous);			// preserve that state
+
+			return prev != ExecutionState.None;
+		}
+
+		/// <summary>
+		/// <para>This allows the system to power down according to the power plan.</para>
+		/// </summary>
+		public void SystemPowerdownAllow()
+		{
+			ExecutionState prev = SetThreadExecutionState(ExecutionState.Continuous);		// Reset all ExecutionStates
+
+			if ((prev & ExecutionState.NotContinuous & ExecutionState.System_NotRequired) != ExecutionState.None)		// If previous ExecutionState was not only System_Required
+				SetThreadExecutionState(prev & ExecutionState.System_NotRequired | ExecutionState.Continuous);			// preserve that state
+		}
+
+		/// <summary>
+		/// <para>This prevents the system from powering down. It will be kept on until <see cref="SystemPowerdownAllow"/> is called, then the user inactivity timer starts according to the power plan.</para>
+		/// </summary>
+		public void SystemPowerdownPrevent()
+		{
+			ExecutionState prev = SetThreadExecutionState(ExecutionState.System_Required | ExecutionState.Continuous);		// Set system required
+
+			if ((prev & ExecutionState.NotContinuous & ExecutionState.System_NotRequired) != ExecutionState.None)		// If previous ExecutionState contained other states
+				SetThreadExecutionState(prev | ExecutionState.System_Required | ExecutionState.Continuous);			// preserve that state and add display state
+		}
+
+		/// <summary>
+		/// <para>This resets the timer that will power down the system after a certain amount of user inactivity.</para>
+		/// </summary>
+		public void SystemPowerdownResetTimer()
+		{
+			SetThreadExecutionState(ExecutionState.System_Required);
 		}
 		#endregion
 		#endregion
