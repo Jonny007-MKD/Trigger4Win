@@ -8,7 +8,10 @@ namespace Trigger.Tasks
 {
 	class LogScreenEvents : TaskPlugin
 	{
-		private Log Log;
+		#region Properties
+		internal Main Main;
+		internal Log Log;
+		#endregion
 
 		#region Methods
 		public override bool Init(Main Main)
@@ -23,6 +26,7 @@ namespace Trigger.Tasks
 				return false;
 			}
 
+			this.Main = Main;
 			this.Log = Main.Log;
 
 			swInit.Stop();
@@ -38,6 +42,19 @@ namespace Trigger.Tasks
 			screenEvents.ScreenOrientationChanged += new Events.EventPlugin.EventValues<ScreenEx>(screenEvents_ScreenOrientationChanged);
 			screenEvents.ScreenRefreshRateChanged += new Events.EventPlugin.EventValues<ScreenEx>(screenEvents_ScreenRefreshRateChanged);
 			return true;
+		}
+
+		public override void Dispose()
+		{
+			Events.Screen screenEvents = Main.EventMgr.GetPlugin<Events.Screen>();
+			screenEvents.ScreenAdded -= new Events.EventPlugin.EventValue<ScreenEx>(screenEvents_ScreenAdded);
+			screenEvents.ScreenRemoved -= new Events.EventPlugin.EventValue<ScreenEx>(screenEvents_ScreenRemoved);
+			screenEvents.ScreenColorDepthChanged -= new Events.EventPlugin.EventValues<ScreenEx>(screenEvents_ScreenColorDepthChanged);
+			screenEvents.ScreenResolutionChanged -= new Events.EventPlugin.EventValues<ScreenEx>(screenEvents_ScreenResolutionChanged);
+			screenEvents.PrimaryScreenChanged -= new Events.EventPlugin.EventValues<ScreenEx>(screenEvents_PrimaryScreenChanged);
+			screenEvents.ScreenLocationChanged -= new Events.EventPlugin.EventValues<ScreenEx>(screenEvents_ScreenLocationChanged);
+			screenEvents.ScreenOrientationChanged -= new Events.EventPlugin.EventValues<ScreenEx>(screenEvents_ScreenOrientationChanged);
+			screenEvents.ScreenRefreshRateChanged -= new Events.EventPlugin.EventValues<ScreenEx>(screenEvents_ScreenRefreshRateChanged);
 		}
 		#endregion
 

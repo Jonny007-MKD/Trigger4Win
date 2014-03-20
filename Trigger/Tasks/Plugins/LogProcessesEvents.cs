@@ -5,7 +5,10 @@ namespace Trigger.Tasks
 {
 	class LogProcessesEvents : TaskPlugin
 	{
+		#region Properties
+		internal Main Main;
 		internal Log Log;
+		#endregion
 
 		#region Methods
 		public override bool Init(Main Main)
@@ -20,6 +23,7 @@ namespace Trigger.Tasks
 				return false;
 			}
 
+			this.Main = Main;
 			this.Log = Main.Log;
 
 			swInit.Stop();
@@ -29,6 +33,13 @@ namespace Trigger.Tasks
 			procEvents.ProcessCreated += new Events.EventPlugin.EventValue<Process>(procEvents_ProcessCreated);
 			procEvents.ProcessExited += new EventPlugin.EventValue<Process>(procEvents_ProcessExited);
 			return true;
+		}
+
+		public override void Dispose()
+		{
+			Events.Processes procEvents = Main.EventMgr.GetPlugin<Events.Processes>();
+			procEvents.ProcessCreated -= new Events.EventPlugin.EventValue<Process>(procEvents_ProcessCreated);
+			procEvents.ProcessExited -= new EventPlugin.EventValue<Process>(procEvents_ProcessExited);
 		}
 		#endregion
 

@@ -8,7 +8,10 @@ namespace Trigger.Tasks
 {
 	class LogDeviceEvents : TaskPlugin
 	{
+		#region Properties
+		internal Main Main;
 		internal Log Log;
+		#endregion
 
 		#region Methods
 		public override bool Init(Main Main)
@@ -23,19 +26,31 @@ namespace Trigger.Tasks
 				return false;
 			}
 
+			this.Main = Main;
 			this.Log = Main.Log;
 
 			swInit.Stop();
-			Events.Device devEvents = Main.EventMgr.GetPlugin<Events.Device>(new object[] {Main});
+			Events.Device deviceEvents = Main.EventMgr.GetPlugin<Events.Device>(new object[] {Main}, true);
 			swInit.Start();
 
-			devEvents.DeviceArrived += new Events.EventPlugin.EventValue<Device>(devEvents_DeviceArrived);
-			devEvents.DeviceQueryRemove += new Events.EventPlugin.EventValue<Device>(devEvents_DeviceQueryRemove);
-			devEvents.DeviceQueryRemoveFailed += new Events.EventPlugin.EventValue<Device>(devEvents_DeviceQueryRemoveFailed);
-			devEvents.DeviceRemoved += new Events.EventPlugin.EventValue<Device>(devEvents_DeviceRemoved);
-			devEvents.MediaInserted += new Events.EventPlugin.EventValue<Device>(devEvents_MediaInserted);
-			devEvents.NetworkVolumeArrived += new Events.EventPlugin.EventValue<Device>(devEvents_NetworkVolumeArrived);
+			deviceEvents.DeviceArrived += new Events.EventPlugin.EventValue<Device>(devEvents_DeviceArrived);
+			deviceEvents.DeviceQueryRemove += new Events.EventPlugin.EventValue<Device>(devEvents_DeviceQueryRemove);
+			deviceEvents.DeviceQueryRemoveFailed += new Events.EventPlugin.EventValue<Device>(devEvents_DeviceQueryRemoveFailed);
+			deviceEvents.DeviceRemoved += new Events.EventPlugin.EventValue<Device>(devEvents_DeviceRemoved);
+			deviceEvents.MediaInserted += new Events.EventPlugin.EventValue<Device>(devEvents_MediaInserted);
+			deviceEvents.NetworkVolumeArrived += new Events.EventPlugin.EventValue<Device>(devEvents_NetworkVolumeArrived);
 			return true;
+		}
+
+		public override void Dispose()
+		{
+			Events.Device devEvents = this.Main.EventMgr.GetPlugin<Events.Device>(new object[] {Main}, true);
+			devEvents.DeviceArrived -= new Events.EventPlugin.EventValue<Device>(devEvents_DeviceArrived);
+			devEvents.DeviceQueryRemove -= new Events.EventPlugin.EventValue<Device>(devEvents_DeviceQueryRemove);
+			devEvents.DeviceQueryRemoveFailed -= new Events.EventPlugin.EventValue<Device>(devEvents_DeviceQueryRemoveFailed);
+			devEvents.DeviceRemoved -= new Events.EventPlugin.EventValue<Device>(devEvents_DeviceRemoved);
+			devEvents.MediaInserted -= new Events.EventPlugin.EventValue<Device>(devEvents_MediaInserted);
+			devEvents.NetworkVolumeArrived -= new Events.EventPlugin.EventValue<Device>(devEvents_NetworkVolumeArrived);
 		}
 		#endregion
 
