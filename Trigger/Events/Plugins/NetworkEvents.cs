@@ -219,7 +219,8 @@ namespace Trigger.Events
 				}
 				if (foundIP == null)
 				{
-					this.OnIpAddressChanged(this, new EventArgsValues<NetworkInterface>(oldNI, newNI));
+					if (this.OnIpAddressChanged != null)
+						this.OnIpAddressChanged(this, new EventArgsValues<NetworkInterface>(oldNI, newNI));
 					return;
 				}
 				else
@@ -227,7 +228,7 @@ namespace Trigger.Events
 					ipsNewList.Remove(foundIP);
 				}
 			}
-			if (ipsNewList.Count > 0)
+			if (ipsNewList.Count > 0 && this.OnIpAddressChanged != null)
 				this.OnIpAddressChanged(this, new EventArgsValues<NetworkInterface>(oldNI, newNI));
 		}
 

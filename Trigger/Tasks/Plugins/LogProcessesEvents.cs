@@ -36,7 +36,8 @@ namespace Trigger.Tasks
 		#region Event handlers
 		private void procEvents_ProcessCreated(object sender, EventArgsValue<Process> e)
 		{
-			this.Log.LogLineDate("A new process was created: " + e.Value.ProcessName + " (" + e.Value.Id + ")", Trigger.Log.Type.ProcessesEvent);
+			try { this.Log.LogLineDate("A new process was created: " + e.Value.ProcessName + " (" + e.Value.Id + ")", Trigger.Log.Type.ProcessesEvent); }
+			catch { this.Log.LogLineDate("A new process was created", Trigger.Log.Type.ProcessesEvent); };
 		}
 
 		private void procEvents_ProcessExited(object sender, EventArgsValue<Process> e)
