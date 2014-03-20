@@ -33,7 +33,6 @@
 			this.tsb_Clear = new System.Windows.Forms.ToolStripButton();
 			this.tsb_Stats = new System.Windows.Forms.ToolStripButton();
 			this.tsb_Options = new System.Windows.Forms.ToolStripDropDownButton();
-			this.tsb_Options_EnableLoggingTasks = new System.Windows.Forms.ToolStripMenuItem();
 			this.tsb_Exit = new System.Windows.Forms.ToolStripButton();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.manageTasksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,22 +80,12 @@
 			// 
 			this.tsb_Options.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
 			this.tsb_Options.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsb_Options_EnableLoggingTasks,
             this.manageTasksToolStripMenuItem});
 			this.tsb_Options.Image = global::Trigger.Properties.Resources.Settings_24x24;
 			this.tsb_Options.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsb_Options.Name = "tsb_Options";
 			this.tsb_Options.Size = new System.Drawing.Size(29, 22);
 			this.tsb_Options.Text = "Options";
-			// 
-			// tsb_Options_EnableLoggingTasks
-			// 
-			this.tsb_Options_EnableLoggingTasks.CheckOnClick = true;
-			this.tsb_Options_EnableLoggingTasks.Name = "tsb_Options_EnableLoggingTasks";
-			this.tsb_Options_EnableLoggingTasks.Size = new System.Drawing.Size(188, 22);
-			this.tsb_Options_EnableLoggingTasks.Text = "Enable Logging Tasks";
-			this.tsb_Options_EnableLoggingTasks.ToolTipText = "(requires restart)";
-			this.tsb_Options_EnableLoggingTasks.CheckedChanged += new System.EventHandler(this.tsbOptions_EnableLoggingTasks_CheckedChanged);
 			// 
 			// tsb_Exit
 			// 
@@ -153,7 +142,6 @@
 		private System.Windows.Forms.ToolStripButton tsb_Clear;
 		private System.Windows.Forms.ToolStripDropDownButton tsb_Options;
 		private System.Windows.Forms.ToolStripButton tsb_Stats;
-		private System.Windows.Forms.ToolStripMenuItem tsb_Options_EnableLoggingTasks;
 		private System.Windows.Forms.ToolStripButton tsb_Exit;
 		private System.Windows.Forms.ToolStrip toolStrip1;
 		private System.Windows.Forms.ToolStripMenuItem manageTasksToolStripMenuItem;
