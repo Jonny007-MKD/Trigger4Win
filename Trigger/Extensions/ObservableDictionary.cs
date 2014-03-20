@@ -26,6 +26,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#pragma warning disable 0693
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -957,3 +959,5 @@ namespace System.Collections.Specialized
         #endregion fields
 	}
 }
+
+#pragma warning restore
