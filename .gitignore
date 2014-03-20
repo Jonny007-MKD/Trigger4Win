@@ -149,3 +149,9 @@ $RECYCLE.BIN/
 
 # Mac crap
 .DS_Store
+
+
+
+Trigger/Tasks/Plugins/OnHibernate.cs
+Trigger/Tasks/Plugins/ProxyHska.cs
+Trigger/Tasks/Plugins/Test.cs

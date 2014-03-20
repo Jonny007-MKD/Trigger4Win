@@ -71,7 +71,7 @@ namespace Trigger.Actions
 		}
 
 		[Flags]
-		private enum ExecutionState : uint
+		internal enum ExecutionState : uint
 		{
 			/// <summary>
 			/// <para>Informs the system that the state being set should remain in effect until the next call that uses ES_CONTINUOUS and one of the other state flags is cleared.</para>
@@ -193,7 +193,7 @@ namespace Trigger.Actions
 		/// <para>Gets the shutdown privilege for this process</para>
 		/// <para><see cref="EWX"/></para>
 		/// </summary>
-		private static void getShutdownPrivilege()
+		internal static void getShutdownPrivilege()
 		{
 			if (hasShutdownPrivilege)
 				return;
