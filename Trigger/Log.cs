@@ -31,7 +31,7 @@ namespace Trigger
 			/// <summary><para>This is an error message</para></summary>
 			Error,
 		}
-
+		/// <summary><para>Our <see cref="Main"/> <see cref="Form"/></para></summary>
 		private Main Main;
 
 		/// <summary></summary>
