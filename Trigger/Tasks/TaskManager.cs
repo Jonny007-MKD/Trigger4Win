@@ -11,10 +11,14 @@ namespace Trigger.Tasks
 	public class Manager
 	{
 		#region Properties
+		/// <summary><para>Our <see cref="Main"/> <see cref="Form"/></para></summary>
 		private Main Main;
 		
+		/// <summary><para>A List of available <see cref="TaskPlugin"/>s</para></summary>
 		public List<Type> TaskPluginsAvailable;
+		/// <summary><para>A List of actually loaded (=active) <see cref="TaskPlugin"/>s</para></summary>
 		public List<Type> TaskPluginsLoaded = new List<Type>();
+		/// <summary><para>A List with the instances of the <see cref="TaskPlugin"/>s</para></summary>
 		private List<TaskPlugin> TaskPluginInstances = new List<TaskPlugin>();
 		#endregion
 
@@ -74,7 +78,12 @@ namespace Trigger.Tasks
 
 			types.ForEach(new Action<Type>(item => loadTask(item)));
 		}
-
+		/// <summary>
+		/// <para>Loads all <see cref="TaskPlugin"/>s that are enabled in <paramref name="plugins"/> and not yet loaded and
+		/// unloads all <see cref="TaskPlugin"/>s that are disabled in <paramref name="plugins"/> and but still loaded</para>
+		/// <para>This method is used by <see cref="TaskOptions"/> to notify us about changes</para>
+		/// <param name="plugins">The list of plugins and whether they shall be enabled</param>
+		/// </summary>
 		public void Refresh(ObservableDictionary<string, bool> plugins)
 		{
 			foreach (KeyValuePair<string, bool> plugin in plugins)
