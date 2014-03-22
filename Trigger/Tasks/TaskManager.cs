@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Windows.Forms;
 
 namespace Trigger.Tasks
@@ -10,10 +11,15 @@ namespace Trigger.Tasks
 	public class Manager
 	{
 		#region Properties
+		/// <summary><para>Our <see cref="Main"/> <see cref="Form"/></para></summary>
 		private Main Main;
-
-		private List<TaskPlugin> TaskPluginInstances = new List<TaskPlugin>();
+		
+		/// <summary><para>A List of available <see cref="TaskPlugin"/>s</para></summary>
 		public List<Type> TaskPluginsAvailable;
+		/// <summary><para>A List of actually loaded (=active) <see cref="TaskPlugin"/>s</para></summary>
+		public List<Type> TaskPluginsLoaded = new List<Type>();
+		/// <summary><para>A List with the instances of the <see cref="TaskPlugin"/>s</para></summary>
+		private List<TaskPlugin> TaskPluginInstances = new List<TaskPlugin>();
 		#endregion
 
 		#region Constructors
@@ -23,19 +29,10 @@ namespace Trigger.Tasks
 		{
 			this.Main = Main;
 
-			bool loggingEnabled = Properties.Settings.Default.LoadLoggingTasks;
-
 			List<Type> types = this.getAvailableTasks();
 			this.TaskPluginsAvailable = types;
 
-			if (!loggingEnabled)
-				types = types.FindAll(new Predicate<Type>(item => { return !item.Name.StartsWith("Log"); }));
-
-			types.ForEach(new Action<Type>(item =>
-					{
-						loadTask(item);
-						Application.DoEvents();
-					}));
+			this.Refresh();
 		}
 		#endregion
 
@@ -70,15 +67,43 @@ namespace Trigger.Tasks
 		}
 
 		/// <summary>
-		/// <para>Loads all logging tasks (task whose name start with "Log")</para>
-		/// <para>Caution: There is no check whether a task is already loaded!</para>
+		/// <para>Loads all <see cref="TaskPlugin"/>s that are not found or enabled in settings</para>
 		/// </summary>
-		public void LoadLoggingTasks()
+		private void Refresh()
 		{
-			List<Type> types = TaskPluginsAvailable.FindAll(new Predicate<Type>((item) => { return item.Name.StartsWith("Log"); }));
-			types.ForEach(new Action<Type>((item) => loadTask(item)));
+			ObservableDictionary<string, bool> plugins = TaskOptions.GetPluginsSetting();
+
+			List<Type> types = new List<Type>(this.TaskPluginsAvailable);
+			types = types.FindAll(new Predicate<Type>(item => { return !plugins.ContainsKey(item.Name) || plugins[item.Name]; }));
+
+			types.ForEach(new Action<Type>(item => loadTask(item)));
+		}
+		/// <summary>
+		/// <para>Loads all <see cref="TaskPlugin"/>s that are enabled in <paramref name="plugins"/> and not yet loaded and
+		/// unloads all <see cref="TaskPlugin"/>s that are disabled in <paramref name="plugins"/> and but still loaded</para>
+		/// <para>This method is used by <see cref="TaskOptions"/> to notify us about changes</para>
+		/// <param name="plugins">The list of plugins and whether they shall be enabled</param>
+		/// </summary>
+		public void Refresh(ObservableDictionary<string, bool> plugins)
+		{
+			foreach (KeyValuePair<string, bool> plugin in plugins)
+			{
+				Type type = this.TaskPluginsLoaded.Find(new Predicate<Type>(item => { return item.Name == plugin.Key; }));
+				if (plugin.Value && type == null)		// task is enabled and not loaded
+					this.loadTask(plugin.Key);
+				if (!plugin.Value && type != null)
+					this.unloadTask(type);
+			}
 		}
 
+		/// <summary>
+		/// <para>Creates an instance of the specified <paramref name="type"/></para>
+		/// </summary>
+		/// <param name="type"></param>
+		private void loadTask(string type)
+		{
+			this.loadTask(this.TaskPluginsAvailable.Find(new Predicate<Type>(item => { return item.Name == type; })));
+		}
 		/// <summary>
 		/// <para>Creates an instance of the specified <paramref name="type"/></para>
 		/// </summary>
@@ -99,6 +124,7 @@ namespace Trigger.Tasks
 #endif
 				{
 					this.TaskPluginInstances.Add(task);
+					this.TaskPluginsLoaded.Add(type);
 
 #if DEBUG
 					swInitEvent.Stop();
@@ -111,6 +137,27 @@ namespace Trigger.Tasks
 			catch (Exception e)
 			{
 				MessageBox.Show(e.Message + "\n\n" + e.StackTrace, "Error when loading Task \"" + type.Name + "\"!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		/// <summary>
+		/// <para>Destructs the instance of the specified <paramref name="type"/></para>
+		/// </summary>
+		/// <param name="type"></param>
+		private void unloadTask(Type type)
+		{
+			try
+			{
+				TaskPlugin task = this.TaskPluginInstances.Find(new Predicate<TaskPlugin>(item => { return item.GetType() == type; }));				
+				task.Dispose();
+				this.TaskPluginInstances.Remove(task);
+				this.TaskPluginsLoaded.Remove(type);
+
+				this.Main.Log.LogLine("Unloaded Task  plugin \"" + type.Name + "\"", Log.Type.Other);
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show(e.Message + "\n\n" + e.StackTrace, "Error when unloading Task \"" + type.Name + "\"!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 		#endregion

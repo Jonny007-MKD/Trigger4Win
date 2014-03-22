@@ -108,6 +108,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Events\Plugins\NetworkEvents.cs" />
+    <Compile Include="Extensions\ObservableDictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Log.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +128,12 @@
     </Compile>
     <Compile Include="Main.Win32Window.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TaskOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TaskOptions.Designer.cs">
+      <DependentUpon>TaskOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -156,6 +165,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaskOptions.resx">
+      <DependentUpon>TaskOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -226,8 +238,11 @@
     <None Include="Resources\Brush_16x16.png" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\libcmdline\CommandLine.csproj">
-      <Project>{5DEA2811-2FFA-4959-830B-CAD3ACACABEB}</Project>
+      <Project>{5dea2811-2ffa-4959-830b-cad3acacabeb}</Project>
       <Name>CommandLine</Name>
     </ProjectReference>
   </ItemGroup>
