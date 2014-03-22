@@ -23,26 +23,26 @@ namespace Trigger
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			/*MessageBox.Show(String.Join<string>("  |  ", args));
+			MessageBox.Show(String.Join<string>("  |  ", args));
 			if (args.Length == 2 && args[0] == "--c9c006cb3f9b8b111f4d2c8ab5ef7aa5")		// we trying to elevate rights and have to kill the previous instance first
 			{
 				try
 				{
 					MessageBox.Show("Try");
-					Process me = Process.GetProcessById(Convert.ToInt32(args[1]));
+					Process previousTrigger4Win = Process.GetProcessById(Convert.ToInt32(args[1]));
 					MessageBox.Show("me = " + Process.GetCurrentProcess().ProcessName + " " + Process.GetCurrentProcess().Id);
-					MessageBox.Show("not me = " + me.ProcessName + " " + me.Id);
-					if (me.ProcessName == Process.GetCurrentProcess().ProcessName)
+					MessageBox.Show("not me = " + previousTrigger4Win.ProcessName + " " + previousTrigger4Win.Id);
+					if (previousTrigger4Win.ProcessName == Process.GetCurrentProcess().ProcessName)
 					{
-						me.Kill();
-						me.WaitForExit();
+						previousTrigger4Win.Kill();
+						previousTrigger4Win.WaitForExit();
 					}
 				}
 				catch(Exception e)
 				{
 					MessageBox.Show(e.Message + "\n\n" + e.StackTrace);
 				}
-			}*/
+			}
 
 			SingleInstanceApplication.Run(new Main(), NewInstanceHandler);
 		}
