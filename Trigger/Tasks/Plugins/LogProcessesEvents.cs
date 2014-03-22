@@ -5,7 +5,10 @@ namespace Trigger.Tasks
 {
 	class LogProcessesEvents : TaskPlugin
 	{
+		#region Properties
+		internal Main Main;
 		internal Log Log;
+		#endregion
 
 		#region Methods
 		public override bool Init(Main Main)
@@ -20,6 +23,7 @@ namespace Trigger.Tasks
 				return false;
 			}
 
+			this.Main = Main;
 			this.Log = Main.Log;
 
 			swInit.Stop();
@@ -30,13 +34,21 @@ namespace Trigger.Tasks
 			procEvents.ProcessExited += new EventPlugin.EventValue<Process>(procEvents_ProcessExited);
 			return true;
 		}
+
+		public override void Dispose()
+		{
+			Events.Processes procEvents = Main.EventMgr.GetPlugin<Events.Processes>();
+			procEvents.ProcessCreated -= new Events.EventPlugin.EventValue<Process>(procEvents_ProcessCreated);
+			procEvents.ProcessExited -= new EventPlugin.EventValue<Process>(procEvents_ProcessExited);
+		}
 		#endregion
 
 
 		#region Event handlers
 		private void procEvents_ProcessCreated(object sender, EventArgsValue<Process> e)
 		{
-			this.Log.LogLineDate("A new process was created: " + e.Value.ProcessName + " (" + e.Value.Id + ")", Trigger.Log.Type.ProcessesEvent);
+			try { this.Log.LogLineDate("A new process was created: " + e.Value.ProcessName + " (" + e.Value.Id + ")", Trigger.Log.Type.ProcessesEvent); }
+			catch { this.Log.LogLineDate("A new process was created", Trigger.Log.Type.ProcessesEvent); };
 		}
 
 		private void procEvents_ProcessExited(object sender, EventArgsValue<Process> e)

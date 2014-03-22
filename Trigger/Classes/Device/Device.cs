@@ -90,6 +90,11 @@ namespace Trigger.Classes.Device
 		/// <returns></returns>
 		public static bool operator ==(Device A, Device B)
 		{
+			if ((object)A == null)
+				return (object)B == null;
+			if ((object)B == null)
+				return false;
+
 			return A.Id == B.Id;
 		}
 		/// <summary></summary>
@@ -98,7 +103,7 @@ namespace Trigger.Classes.Device
 		/// <returns></returns>
 		public static bool operator !=(Device A, Device B)
 		{
-			return A.Id != B.Id;
+			return !(A == B);
 		}
 
 		/// <summary>

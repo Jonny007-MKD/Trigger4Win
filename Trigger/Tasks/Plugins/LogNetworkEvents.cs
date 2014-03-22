@@ -9,7 +9,10 @@ namespace Trigger.Tasks
 {
 	class LogNetworkEvents : TaskPlugin
 	{
+		#region Properties
+		internal Main Main;
 		internal Log Log;
+		#endregion
 
 		#region Methods
 		public override bool Init(Main Main)
@@ -18,13 +21,14 @@ namespace Trigger.Tasks
 		}
 		public override bool Init(Main Main, System.Diagnostics.Stopwatch swInit)
 		{
-			this.Log = Main.Log;
-
 			if (!Main.EventMgr.PluginExists<Events.Network>())
 			{
 				this.Log.LogLine("Task \"LogNetworkEvents\" is missing EventPlugin \"Network\"!", Log.Type.Error);
 				return false;
 			}
+
+			this.Main = Main;
+			this.Log = Main.Log;
 
 			swInit.Stop();
 			Events.Network networkEvents = Main.EventMgr.GetPlugin<Events.Network>();
@@ -35,6 +39,16 @@ namespace Trigger.Tasks
 			networkEvents.NetworkInterfaceRemoved += networkEvents_NetworkInterfaceRemoved;
 			networkEvents.IpAddressChanged += networkEvents_IpAddrChanged;
 			return true;
+		}
+
+		public override void Dispose()
+		{
+			Events.Network networkEvents = this.Main.EventMgr.GetPlugin<Events.Network>();
+
+			networkEvents.NetworkAvailabilityChanged -= networkEvents_NetworkAvailabilityChanged;
+			networkEvents.NetworkInterfaceAdded -= networkEvents_NetworkInterfaceAdded;
+			networkEvents.NetworkInterfaceRemoved -= networkEvents_NetworkInterfaceRemoved;
+			networkEvents.IpAddressChanged -= networkEvents_IpAddrChanged;
 		}
 		#endregion
 

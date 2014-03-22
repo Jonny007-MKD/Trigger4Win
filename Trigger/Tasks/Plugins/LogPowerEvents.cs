@@ -8,7 +8,10 @@ namespace Trigger.Tasks
 {
 	class LogPowerEvents : TaskPlugin
 	{
+		#region Properties
+		internal Main Main;
 		internal Log Log;
+		#endregion
 
 		#region Methods
 		public override bool Init(Main Main)
@@ -23,10 +26,11 @@ namespace Trigger.Tasks
 				return false;
 			}
 
+			this.Main = Main;
 			this.Log = Main.Log;
 
 			swInit.Stop();
-			Events.Power pwrEvents = Main.EventMgr.GetPlugin<Events.Power>(new object[] {Main});
+			Events.Power pwrEvents = Main.EventMgr.GetPlugin<Events.Power>(new object[] {Main}, true);
 			swInit.Start();
 
 			pwrEvents.PowerModeChanged += new Events.EventPlugin.EventValue<PowerModes>(pwrEvents_PowerModeChanged);
@@ -38,6 +42,19 @@ namespace Trigger.Tasks
 
 			pwrEvents.PowerSchemeChanged += new Events.EventPlugin.EventValues<PowerScheme>(pwrEvents_PowerSchemeChanged);
 			return true;
+		}
+
+		public override void Dispose()
+		{
+			Events.Power pwrEvents = Main.EventMgr.GetPlugin<Events.Power>(new object[] {Main}, true);
+			pwrEvents.PowerModeChanged -= new Events.EventPlugin.EventValue<PowerModes>(pwrEvents_PowerModeChanged);
+			pwrEvents.Suspend -= new Events.EventPlugin.Event(pwrEvents_Suspend);
+			pwrEvents.Resume -= new Events.EventPlugin.Event(pwrEvents_Resume);
+			pwrEvents.PowerLineStatusChanged -= new Events.EventPlugin.EventValues<PowerLineStatus>(pwrEvents_PowerLineStatusChanged);
+			pwrEvents.BatteryAvailabilityChanged -= new Events.EventPlugin.EventValue<bool?>(pwrEvents_BatteryAvailabilityChanged);
+			pwrEvents.BatteryStatusChanged -= new Events.EventPlugin.EventValues<BatteryChargeStatus>(pwrEvents_BatteryStatusChanged);
+
+			pwrEvents.PowerSchemeChanged -= new Events.EventPlugin.EventValues<PowerScheme>(pwrEvents_PowerSchemeChanged);
 		}
 		#endregion
 

@@ -24,6 +24,8 @@ namespace Trigger
 			ProcessesEvent,
 			/// <summary><para>This is a device event</para></summary>
 			DeviceEvent,
+			/// <summary><para>This is a command line event</para></summary>
+			CommandLineEvent,
 			/// <summary><para>This is an action</para></summary>
 			Action,
 			/// <summary><para>This is an message without type</para></summary>
@@ -31,7 +33,7 @@ namespace Trigger
 			/// <summary><para>This is an error message</para></summary>
 			Error,
 		}
-
+		/// <summary><para>Our <see cref="Main"/> <see cref="Form"/></para></summary>
 		private Main Main;
 
 		/// <summary></summary>
@@ -39,37 +41,11 @@ namespace Trigger
 		public Log(Main Main)
 		{
 			InitializeComponent();
-			this.tsb_Options_EnableLoggingTasks.Checked = Properties.Settings.Default.LoadLoggingTasks;
 
 			this.Main = Main;
-
-			// Add a menu item for each log ("LogNameHereEnabled") setting
-			foreach (SettingsProperty setting in Properties.Settings.Default.Properties)
-			{
-				if (!setting.Name.StartsWith("Log"))
-					continue;
-				ToolStripMenuItem tsmi = new ToolStripMenuItem("Show " + setting.Name.Substring(3, setting.Name.IndexOf("Enabled") - 3) + " messages");
-				tsmi.CheckOnClick = true;
-				tsmi.Checked = Convert.ToBoolean(Properties.Settings.Default[setting.Name]);
-				tsmi.Name = setting.Name;
-				tsmi.CheckedChanged += tsb_Options_DropDownItem_CheckedChanged;
-				tsmi.Enabled = Properties.Settings.Default.LoadLoggingTasks;
-				tsb_Options.DropDownItems.Add(tsmi);
-			}
 		}
 
 		#region Methods
-		private bool isLoggingDisabled(Type type)
-		{
-			if (type == Type.Other || type == Type.Error)
-				return false;
-			string typeStart = type.ToString();
-			if (typeStart.EndsWith("Event"))
-				return !(bool)Properties.Settings.Default["Log" + typeStart.Substring(0, typeStart.Length - 5) + "Enabled"];
-			else
-				return false;
-		}
-
 		/// <summary>
 		/// <para>Appends the specified <paramref name="text"/> to the log box <see cref="txt"/></para>
 		/// </summary>
@@ -77,8 +53,6 @@ namespace Trigger
 		/// <param name="type"></param>
 		public void LogText(string text, Type type)
 		{
-			if (isLoggingDisabled(type))
-				return;
 			if (this.txt.InvokeRequired)
 			{
 				this.txt.Invoke(new MethodInvoker(() => this.LogText(text, type)));
@@ -103,8 +77,6 @@ namespace Trigger
 		/// <param name="type"></param>
 		public void LogLine(string text, Type type)
 		{
-			if (isLoggingDisabled(type))
-				return;
 			if (this.txt.InvokeRequired)
 			{
 				this.txt.Invoke(new MethodInvoker(() => this.LogLine(text, type)));
@@ -127,8 +99,6 @@ namespace Trigger
 		/// </summary>
 		public void Line(Type type)
 		{
-			if (isLoggingDisabled(type))
-				return;
 			if (this.txt.InvokeRequired)
 			{
 				this.txt.Invoke(new MethodInvoker(() => this.Line(type)));
@@ -210,35 +180,6 @@ namespace Trigger
 		}
 
 		/// <summary>
-		/// <para>Saves the setting whether the logging tasks shall be loaded and restarts the <see cref="Application"/> if neccessary</para>
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void tsbOptions_EnableLoggingTasks_CheckedChanged(object sender, EventArgs e)
-		{
-			ToolStripMenuItem tsmi = (ToolStripMenuItem)sender;
-			if (Properties.Settings.Default.LoadLoggingTasks == tsmi.Checked)
-				return;
-			Properties.Settings.Default.LoadLoggingTasks = tsmi.Checked;
-			Properties.Settings.Default.Save();
-			if (tsmi.Checked)
-			{
-				this.Main.TaskMgr.LoadLoggingTasks();
-				
-				// Enable logging display settings
-				foreach (SettingsProperty setting in Properties.Settings.Default.Properties)
-				{
-					if (!setting.Name.StartsWith("Log"))
-						continue;
-					ToolStripItem tsmiSetting = this.tsb_Options.DropDownItems.Find(setting.Name, false)[0];
-					tsmiSetting.Enabled = true;
-				}
-			}
-			else
-				Application.Restart();
-		}
-
-		/// <summary>
 		/// <para>Close the application</para>
 		/// </summary>
 		/// <param name="sender"></param>
@@ -266,6 +207,16 @@ namespace Trigger
 					e.Handled = true;
 					break;
 			}
+		}
+		
+		/// <summary>
+		/// <para>Opens the <see cref="TaskOptions"/></para>
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void manageTasksToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			new TaskOptions(this.Main).Show();
 		}
 		#endregion
 	}

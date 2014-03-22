@@ -186,6 +186,9 @@ namespace Trigger.Classes.Device
 		/// <returns></returns>
 		internal static StorageDisk FromUnitMask(int UnitMask)
 		{
+			if (UnitMask == 0)
+				return new StorageDisk(null, null, null);
+
 			char Letter = FirstDriveFromMask(UnitMask);
 			StorageDisk sd = null;
 

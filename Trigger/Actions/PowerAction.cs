@@ -15,8 +15,15 @@ namespace Trigger.Actions
 		#endregion
 
 		#region Dll Imports
+		/// <summary>
+		/// <para>Locks the workstation's display. Locking a workstation protects it from unauthorized use.</para>
+		/// </summary>
+		/// <returns>
+		/// <para>If the function succeeds, the return value is nonzero. Because the function executes asynchronously, a nonzero return value indicates that the operation has been initiated. It does not indicate whether the workstation has been successfully locked.
+		/// <para>If the function fails, the return value is zero. To get extended error information, call GetLastError.</para>
+		/// </returns>
 		[DllImport("powrprof.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-		private static extern bool LockWorkStation();
+		internal static extern bool LockWorkStation();
 		#endregion
 
 		#region Methods

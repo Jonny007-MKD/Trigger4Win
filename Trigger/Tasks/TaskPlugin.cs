@@ -1,8 +1,9 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace Trigger.Tasks
 {
-	abstract class TaskPlugin
+	abstract class TaskPlugin : IDisposable
 	{
 		#region Properties
 		#endregion
@@ -23,16 +24,21 @@ namespace Trigger.Tasks
 		{
 			return Init(Main);
 		}
+		/// <summary>
+		/// <para>Unregisters all events so the task can be unloaded</para>
+		/// </summary>
+		public abstract void Dispose();
+
 
 		/// <summary>
 		/// <para>Gets the current status of this <see cref="TaskPlugin"/></para>
 		/// <para>It may give some status information or only the name</para>
 		/// </summary>
 		/// <returns></returns>
-		public virtual TreeNode GetStatus()
+		public virtual TreeNode GetStatus(TreeView tv)
 		{
 			return new TreeNode(this.GetType().Name);
 		}
 		#endregion
-	}
+}
 }

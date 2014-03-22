@@ -126,7 +126,7 @@ namespace Trigger.Events
 		/// <para>This includes the lists with available and with loaded <see cref="EventPlugin"/>s</para>
 		/// </summary>
 		/// <returns></returns>
-		public TreeNode GetStatus()
+		public TreeNode GetStatus(TreeView tv)
 		{
 			TreeNode tnMain = new TreeNode("Event Manager");
 

@@ -7,7 +7,10 @@ namespace Trigger.Tasks
 {
 	class LogSystemEvents : TaskPlugin
 	{
-		private Log Log;
+		#region Properties
+		internal Main Main;
+		internal Log Log;
+		#endregion
 
 		#region Methods
 		public override bool Init(Main Main)
@@ -22,6 +25,7 @@ namespace Trigger.Tasks
 				return false;
 			}
 
+			this.Main = Main;
 			this.Log = Main.Log;
 
 			swInit.Stop();
@@ -46,6 +50,28 @@ namespace Trigger.Tasks
 			sysEvents.SessionUnlock += new Events.EventPlugin.Event(sysEvents_SessionUnlock);
 
 			return true;
+		}
+
+		public override void Dispose()
+		{
+			Events.System sysEvents = Main.EventMgr.GetPlugin<Events.System>();
+
+			sysEvents.InstalledFontsChanged -= new Events.EventPlugin.Event(sysEvents_InstalledFontsChanged);
+			sysEvents.FontAdded -= new Events.EventPlugin.EventValue<FontFamily>(sysEvents_FontAdded);
+			sysEvents.FontRemoved -= new Events.EventPlugin.EventValue<FontFamily>(sysEvents_FontRemoved);
+
+			sysEvents.Logoff -= new Events.EventPlugin.Event(sysEvents_Logoff);
+			sysEvents.Shutdown -= new Events.EventPlugin.Event(sysEvents_Shutdown);
+
+			sysEvents.ConsoleConnect -= new Events.EventPlugin.Event(sysEvents_ConsoleConnect);
+			sysEvents.ConsoleDisconnect -= new Events.EventPlugin.Event(sysEvents_ConsoleDisconnect);
+			sysEvents.RemoteConnect -= new Events.EventPlugin.Event(sysEvents_RemoteConnect);
+			sysEvents.RemoteDisconnect -= new Events.EventPlugin.Event(sysEvents_RemoteDisconnect);
+			sysEvents.SessionLock -= new Events.EventPlugin.Event(sysEvents_SessionLock);
+			sysEvents.SessionLogoff -= new Events.EventPlugin.Event(sysEvents_SessionLogoff);
+			sysEvents.SessionLogon -= new Events.EventPlugin.Event(sysEvents_SessionLogon);
+			sysEvents.SessionRemoteControl -= new Events.EventPlugin.Event(sysEvents_SessionRemoteControl);
+			sysEvents.SessionUnlock -= new Events.EventPlugin.Event(sysEvents_SessionUnlock);
 		}
 		#endregion
 

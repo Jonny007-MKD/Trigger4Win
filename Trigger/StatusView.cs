@@ -34,8 +34,8 @@ namespace Trigger
 		public override void Refresh()
 		{
 			this.treeView.Nodes.Clear();
-			this.treeView.Nodes.Add(this.Main.EventMgr.GetStatus());
-			this.treeView.Nodes.Add(this.Main.TaskMgr.GetStatus());
+			this.treeView.Nodes.Add(this.Main.EventMgr.GetStatus(this.treeView));
+			this.treeView.Nodes.Add(this.Main.TaskMgr.GetStatus(this.treeView));
 
 
 			TreeNode tnStatus = this.treeView.Nodes.Add("System Status");
